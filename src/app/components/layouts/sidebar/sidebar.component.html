@@ -1,0 +1,171 @@
+<aside id="sidebar" class="sidebar">
+      <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
+      <!-- <ul class="sidebar-nav" id="sidebar-nav"
+      *ngIf="(_router.url === '/user-dashboard' || _router.url === '/user-totalleaves' || _router.url === '/user-rejectedleaves'  || _router.url==='/user-approvedleaves' || _router.url==='/user-appliedleaves' || _router.url==='/user-rejectedleaves'|| _router.url==='/profile' || _router.url==='/contact')">
+      <li class="nav-item"> <a class="nav-link " routerLink="/user-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-leave"> <i class="bi bi-calendar-event"></i>
+            <span>Leave</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-policy" > <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul>
+   <ul class="sidebar-nav" id="sidebar-nav" *ngIf="(_router.url === '/user-leave')">
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link " routerLink="/user-leave"> <i class="bi bi-calendar-event"></i>
+            <span>Leave</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul>
+   <ul class="sidebar-nav" id="sidebar-nav" *ngIf="(_router.url === '/user-policy')">
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-leave"> <i class="bi bi-calendar-event"></i>
+            <span>Leave</span> </a></li>
+      <li class="nav-item"> <a class="nav-link " routerLink="/user-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul>
+
+   <ul class="sidebar-nav" id="sidebar-nav" *ngIf="(_router.url === '/user-activites')">
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-leave"> <i class="bi bi-calendar-event"></i>
+            <span>Leave</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link " routerLink="/user-activites"> <i class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul> -->
+
+      <!-- //wageincharge || _router.url==='' *ngIf="!( _router.url==='')" -->
+      <!-- <ul class="sidebar-nav" id="sidebar-nav"
+      *ngIf="(_router.url === '/wages-dashboard' || _router.url === '/wages-subdashboard' || _router.url==='/profile')">
+      <li class="nav-item"> <a class="nav-link " routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
+               class="bi bi-calendar-event"></i>
+            <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i class="bi bi-diagram-3"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul>
+   <ul class="sidebar-nav" id="sidebar-nav" *ngIf="(_router.url === '/wages-report' )">
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link " routerLink="/wages-report"> <i class="bi bi-calendar-event"></i>
+            <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i class="bi bi-diagram-3"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul>
+   <ul class="sidebar-nav" id="sidebar-nav" *ngIf="(_router.url === '/wages-holiday')">
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
+               class="bi bi-calendar-event"></i>
+            <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link " routerLink="/wages-holiday"> <i class="bi bi-diagram-3"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul>
+   <ul class="sidebar-nav" id="sidebar-nav" *ngIf="(_router.url === '/wages-policy')">
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
+               class="bi bi-calendar-event"></i>
+            <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i class="bi bi-diagram-3"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link " routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul>
+   <ul class="sidebar-nav" id="sidebar-nav" *ngIf="(_router.url === '/wages-activites')">
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
+               class="bi bi-calendar-event"></i>
+            <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i class="bi bi-diagram-3"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link " routerLink="/wages-activites"> <i class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul> -->
+      <!-- //superviser -->
+      <!-- <ul class="sidebar-nav" id="sidebar-nav"
+      *ngIf="(_router.url === '/superwiser-dashboard' || _router.url === '/superwiser-subdashboard')">
+      <li class="nav-item"> <a class="nav-link " routerLink="/superwiser-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-report"> <i
+               class="bi bi-calendar-event"></i> <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-holiday"> <i
+               class="bi bi-diagram-3"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-policy"> <i
+               class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul> -->
+      <!-- //doctor -->
+      <!-- <ul class="sidebar-nav" id="sidebar-nav"
+      *ngIf="(_router.url === '/doctor-dashboard' || _router.url === '/doctor-subdashboard')">
+      <li class="nav-item"> <a class="nav-link " routerLink="/doctor-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/doctor-report"> <i
+               class="bi bi-calendar-event"></i>
+            <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/doctor-holiday"> <i class="bi bi-diagram-3"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/doctor-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/doctor-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul> -->
+      <!-- //user -->
+      <!-- <ul class="sidebar-nav" id="sidebar-nav"
+      *ngIf="(_router.url === '/dept-dashboard' || _router.url === '/dept-totalemployees' || _router.url === '/dept-manageleaves' || _router.url==='/dept-approvedleaves' || _router.url==='/dept-rejectedleaves' || _router.url==='/dept-onleaves' || _router.url==='/dept-noofpresent' || _router.url==='/dept-addperson')">
+      <li class="nav-item"> <a class="nav-link " routerLink="/dept-dashboard"> <i class="bi bi-grid"></i>
+            <span>Dashboard</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-addleaves"> <i
+               class="bi bi-calendar-event"></i> <span>Leave</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-report"> <i
+               class="bi bi-file-earmark-bar-graph"></i>
+            <span>Report</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-holiday"> <i
+               class="bi bi-calendar-week"></i>
+            <span>Holidays</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-policy"> <i class="bi bi-diagram-3"></i>
+            <span>Policy</span> </a></li>
+      <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-activites"> <i
+               class="bi bi-bar-chart-steps"></i>
+            <span>Activites</span> </a></li>
+   </ul> -->
+</aside>

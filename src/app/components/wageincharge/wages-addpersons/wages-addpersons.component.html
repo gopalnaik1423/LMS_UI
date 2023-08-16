@@ -1,0 +1,134 @@
+<aside id="sidebar" class="sidebar">
+    <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i
+                    class="bi bi-grid"></i>
+                <span>Dashboard</span> </a></li>
+        <li class="nav-item"> <a class="nav-link " routerLink="/wages-report"> <i class="bi bi-calendar-event"></i>
+                <span>Report</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i
+                    class="bi bi-diagram-3"></i>
+                <span>Holidays</span> </a></li> -->
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i
+                    class="bi bi-diagram-3"></i>
+                <span>Policy</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+                    class="bi bi-bar-chart-steps"></i>
+                <span>Activites</span> </a></li> -->
+    </ul>
+</aside>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Welcome {{fullName}} <span style="font-size: small;">({{role}})</span></h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/wages-report">Dashboard</a></li>
+                <li class="breadcrumb-item active">AddPersons</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Basic Detailes</h5>
+                        <form class="row g-3" [formGroup]="addPerson">
+                            <div class="col-md-6">
+                                <input type="text" formControlName="empName" class="form-control" placeholder="Employee Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" formControlName="empId" class="form-control" placeholder="Employee ID">
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" formControlName="email" class="form-control" placeholder="Employee Email">
+                            </div>
+                            <h5 class="card-title">Employee Detailes</h5>
+                            <div class="col-md-6">
+                                <select name="Sessions" formControlName="country" id="sessions1" class="form-control">
+                                    <option value="0" selected disabled>Select Country</option>
+                                    <option value="1">India</option>
+                                    <option value="2">USA</option>
+                                    <option value="2">Rusiha</option>
+                                    <option value="2">China</option>
+                                    <option value="2">Nepal</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" formControlName="startDate"  name="fromDate" id="date"
+                                    placeholder="Start Date">
+                            </div>
+                            <div class="col-md-12">
+                                <select class="form-select" formControlName="cetagory" >
+                                    <option value="0" selected disabled>Job Type</option>
+                                    <option value="1">NSD</option>
+                                    <option value="2">OL</option>
+                                    <option value="2">OA</option>
+                                    <option value="2">QL</option>
+                                    <option value="2">TL</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="row">
+                                    <label for="radio">Employee Type</label>
+                                    <div class="col-12 d-flex my-2">
+                                        <div class="form-check mx-2">
+                                            <input class="form-check-input" formControlName="jobType"  type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Permanent
+                                            </label>
+                                        </div>
+                                        <div class="form-check mx-2">
+                                            <input class="form-check-input" formControlName="jobType"  type="radio" name="flexRadioDefault"
+                                                id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Free Lancher
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Teams and Offices</h5>
+                        <form class="row g-3">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Teams">
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Line Manager">
+                            </div>
+                            <div class="col-md-12">
+                                <input type="text" class="form-control" placeholder="Office Name">
+                            </div>
+                            <h5 class="card-title">Salary Details</h5>
+                            <div class="col-md-6">
+                                <input type="number" class="form-control" placeholder="Annual CTC">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="date" class="form-control" name="fromDate" id="date"
+                                    placeholder="Start Date">
+                            </div>
+                            <div class="col-md-12"><label for="job type" class="form-label">Job Type</label>
+                                <input type="text" class="form-control" placeholder="Ex. Software Engineer">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <button type="button" class="btn btn-primary btn-md">Add Team Member</button>
+            </div>
+        </div>
+    </section>
+</main>

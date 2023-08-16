@@ -1,0 +1,371 @@
+<aside id="sidebar" class="sidebar">
+    <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item"> <a class="nav-link collapsed"  routerLink="/dept-dashboard"> <i class="bi bi-grid"></i>
+                <span>Dashboard</span> </a></li>
+        <li class="nav-item"> <a class="nav-link " (click)="Dash()"> <i
+                    class="bi bi-calendar-event"></i> <span>Leave</span> </a></li>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-report"> <i
+                    class="bi bi-file-earmark-bar-graph"></i>
+                <span>Report</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-holiday"> <i
+                    class="bi bi-calendar-week"></i>
+                <span>Holidays</span> </a></li> -->
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-policy"> <i class="bi bi-diagram-3"></i>
+                <span>Policy</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-activites"> <i
+                    class="bi bi-bar-chart-steps"></i>
+                <span>Activites</span> </a></li> -->
+    </ul>
+</aside>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Welcome {{fullName}} <span style="font-size: small;">({{role}})</span></h1>
+        <nav>
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/dept-dashboard">Dashboard</a></li>
+            <li class="breadcrumb-item active">AddLeaves</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card bg-primary text-light" (click)="tabone()">
+                    <div class="card-body ">
+                        <h5 class="card-title text-center text-light">Total Leaves</h5>
+                        <p class="text-center" style="font-weight:bold;">{{total}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card bg-info text-light" (click)="tabTwo()">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-light">Applied Leaves</h5>
+                        <p class="text-center" style="font-weight:bold;">{{apllied}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card bg-success text-light" (click)="tabTthree()">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-light">Approved Leaves</h5>
+                        <p class="text-center" style="font-weight:bold;">{{approved}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card bg-danger text-light" (click)="tabFour()">
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-light">Rejected Leaves</h5>
+                        <p class="text-center" style="font-weight:bold;">{{reject}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="showElement">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Apply Leaves</h5>
+                        <form class="row g-3" [formGroup]="applyLeave" (ngSubmit)="onApplyLeave()">
+                            <div class="col-md-12">
+                                <label for="leaveType" class="form-label">Leave Type</label>
+                                <select name="LeaveType" id="leaveType" formControlName="leaveType" class="form-select">
+                                    <option value="0" selected disabled>Please Select</option>
+                                    <option value="Casual">Casual</option>
+                                    <option value="Sick">Sick</option>
+                                    <option value="Annual">Annual</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6"> <label for="date"  class="form-label">From Date</label>
+                                <input type="date" class="form-control" [min]="maxDate" formControlName="fromDate" name="fromDate" id="date1" placeholder="no"
+                                    maxlength="04/10/2023">
+                            </div>
+                            <div class="col-md-6"> <label for="date"  class="form-label">To Date</label>
+                                <input type="date" class="form-control" [min]="maxDate" formControlName="todate" name="fromDate" id="date2"
+                                    placeholder="To Date">
+                            </div>
+                            <div class="col-md-6"> <label for="Sessions"  class="form-label">From Session</label>
+                                <select name="Sessions" id="sessions1" formControlName="fromSession" class="form-control">
+                                    <option value="0" selected disabled>Select Session</option>
+                                    <option value="session1">Session 1</option>
+                                    <option value="session2">Session 2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6"> <label for="Sessions" class="form-label">To Session</label>
+                                <select name="Sessions" id="sessions2"  formControlName="toSession" class="form-control">
+                                    <option value="0" selected disabled>Select Session</option>
+                                    <option value="session1">Session 1</option>
+                                    <option value="session2">Session 2</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
+                                    style="width: 20px; height: 20px;">
+                                &nbsp;Applying To
+                            </div>
+                            <div class="col-6">
+                                <a onclick="toggle()"> <i class="bi bi-plus-circle"
+                                        style="font-size: large; cursor: pointer;"></i></a> &nbsp; Add CC
+                            </div>
+                            <div class="col-12" id="emaildisplay" style="display: none;">
+                                <div class="d-flex">
+                                    <input type="email" class="form-control" formControlName="applyTo" placeholder="Enter Email Id">
+                                    <i class="bi bi-x-lg" onclick="toggle()" style="color: red; float: right; padding-left:10px;"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <textarea name="comment" id="comment" formControlName="description" placeholder="Enter Reason" cols="10"
+                                    class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <label class="d-inline-block text-primary m-auto"><input type="file"
+                                        class="custom-file-input" hidden id="customFile"><i class="bi bi-plus-square"
+                                        for="customFile" style="font-size: 20px; cursor: pointer;"></i> &nbsp; <a
+                                        style="cursor: default;">Attach
+                                        File</a></label>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn form-control btn-outline-primary">Cancel</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary form-control">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Upcoming Holidays</h5>
+                        <table class="table table-borderless table-sm">
+                            <tbody>
+                                <tr *ngFor="let data of holiday; let i=index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{data.holidayName}}</td>
+                                    <td>{{data.holidayDate| date}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a id="admin" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="float-end">See All Holidays</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Activites</h5>
+                        <table class="table table-hover table-sm">
+                            <tbody>
+                                <tr *ngFor="let act of activites">
+                                    <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
+                                            style="width: 30px; height: 30px;"></td>
+                                    <td>{{act}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="shoWElmenttwo">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Leaves</h5>
+                        <div class="table-responsive">
+                            <table class="table" style="width: 100%; height: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Type of Leaves</th>
+                                        <th scope="col">Total Leaves</th>
+                                        <th scope="col">Leaves Consumed</th>
+                                        <th scope="col">Leaves Remaing</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Anual Leave</td>
+                                        <td>{{leaves.annualLeaves}}</td>
+                                        <td>{{leaves.annualLeaves-ballance.annualLeaves}}</td>
+                                        <td>{{ballance.annualLeaves}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Sick Leave</td>
+                                        <td>{{leaves.sickLeave}}</td>
+                                        <td>{{leaves.sickLeave-ballance.sickLeave}}</td>
+                                        <td>{{ballance.sickLeave}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Casual Leave</td>
+                                        <td>{{leaves.casualLeave}}</td>
+                                        <td>{{leaves.casualLeave-ballance.casualLeave}}</td>
+                                        <td>{{ballance.casualLeave}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Trade Union Leave</td>
+                                        <td>{{leaves.tradeUnionLeaves}}</td>
+                                        <td>{{leaves.tradeUnionLeaves-ballance.tradeUnionLeaves}}</td>
+                                        <td>{{ballance.tradeUnionLeaves}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>On Duty Leave</td>
+                                        <td>{{leaves.onDuty}}</td>
+                                        <td>{{leaves.onDuty-ballance.onDuty}}</td>
+                                        <td>{{ballance.onDuty}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">6</th>
+                                        <td>Quarantine Leave</td>
+                                        <td>{{leaves.quarantineLeave}}</td>
+                                        <td>{{leaves.quarantineLeave-ballance.quarantineLeave}}</td>
+                                        <td>{{ballance.quarantineLeave}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="ApprovedTable">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Approved Leaves</h5>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type of Leaves</th>
+                                        <th scope="col">From</th>
+                                        <th scope="col">To</th>
+                                        <th scope="col">No of Days</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Approved By</th>
+                                        <th scope="col">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let approved of approveleaves;">
+                                        <td>{{approved.leaveType}}</td>
+                                        <td>{{approved.fromDate | date}}</td>
+                                        <td>{{approved.toDate | date}}</td>
+                                        <td>{{approved.leaveDays}}</td>
+                                        <td>{{approved.status}}</td>
+                                        <td>{{approved.applyTo}}</td>
+                                        <td>{{approved.description}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="Appliedlev">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Applied Leaves</h5>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type of Leaves</th>
+                                        <th scope="col">From</th>
+                                        <th scope="col">To</th>
+                                        <th scope="col">No of Days</th>
+                                        <th scope="col">Applied To By</th>
+                                        <th scope="col">Reason</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let applied of appliedleaves;">
+                                        <td>{{applied.leaveType}}</td>
+                                        <td>{{applied.fromDate | date}}</td>
+                                        <td>{{applied.toDate | date}}</td>
+                                        <td>{{applied.leaveDays}}</td>
+                                        <td>{{applied.applyTo}}</td>
+                                        <td>{{applied.description}}</td>
+                                        <td>{{applied.status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="reectedLev">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Rejected Leaves</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type of Leaves</th>
+                                        <th scope="col">From</th>
+                                        <th scope="col">To</th>
+                                        <th scope="col">No of Days</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Rejected By</th>
+                                        <th scope="col">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let reject of rejectleaves;">
+                                        <td>{{reject.leaveType}}</td>
+                                        <td>{{reject.fromDate | date}}</td>
+                                        <td>{{reject.toDate | date}}</td>
+                                        <td>{{reject.leaveDays}}</td>
+                                        <td>{{reject.status}}</td>
+                                        <td>{{reject.applyTo}}</td>
+                                        <td>{{reject.description}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- Get All Holidays -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <p class="card-title">Holidays</p><br> 
+            </div>
+  
+            <div class="modal-body">
+                <table class="table table-borderless table-sm">
+                    <tbody>
+                        <tr *ngFor="let data of allHoliday; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{data.holidayName}}</td>
+                            <td>{{data.holidayDate| date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+  </div>

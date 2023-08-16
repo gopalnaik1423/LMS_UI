@@ -1,0 +1,185 @@
+<aside id="sidebar" class="sidebar">
+    <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-dashboard"> <i class="bi bi-grid"></i>
+                <span>Dashboard</span> </a></li>
+        <li class="nav-item"> <a class="nav-link " routerLink="/user-leave"> <i
+                    class="bi bi-calendar-event"></i> <span>Leave</span> </a></li>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-policy"> <i class="bi bi-diagram-3"></i>
+                <span>Policy</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/user-activites"> <i
+                    class="bi bi-bar-chart-steps"></i>
+                <span>Activites</span> </a></li> -->
+    </ul>
+</aside> 
+<main id="main" class="main">
+    <div class="row d-flex">
+        <div class="col-8">
+            <div class="pagetitle">
+               <h1>Welcome {{fullName}}<span style="font-size: small;"> (Employee)</span></h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/user-dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Leaves</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col">
+            <button class="btn btn-primary btn-sm float-end" routerLink="/user-dashboard" style="font-size: small;">Add Leaves <span><i
+                        class="bi bi-plus-lg"></i></span></button>
+        </div>
+    </div>
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Annual Leaves</h5>
+                        <div class="card-group">
+                            <div class="card text-center">
+                                <div class="card-header text-justify text-dark">Total Leaves <strong> {{leaves.annualLeaves}}</strong></div>
+                                <div class="card-group">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Consumed</p>
+                                            <strong>{{leaves.annualLeaves-ballance.annualLeaves}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Remaining</p>
+                                            <strong>{{ballance.annualLeaves}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Sick Leaves</h5>
+                        <div class="card-group">
+                            <div class="card text-center">
+                                <div class="card-header text-justify text-dark">Total Leaves <strong>{{leaves.sickLeave}}</strong></div>
+                                <div class="card-group">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Consumed</p>
+                                            <strong>{{leaves.sickLeave-ballance.sickLeave}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Remaining</p>
+                                            <strong>{{ballance.sickLeave}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">On Duty</h5>
+                        <div class="card-group">
+                            <div class="card text-center">
+                                <div class="card-header text-justify text-dark">Total Leaves <strong>{{leaves.onDuty}}</strong></div>
+                                <div class="card-group">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Consumed</p>
+                                            <strong>{{leaves.onDuty-ballance.onDuty}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Remaining</p>
+                                            <strong>{{ballance.onDuty}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Trade Union Leaves</h5>
+                        <div class="card-group">
+                            <div class="card text-center">
+                                <div class="card-header text-justify text-dark">Total Leaves <strong>{{leaves.tradeUnionLeaves}}</strong></div>
+                            <div class="card-group">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <p>Consumed</p>
+                                        <strong>{{leaves.tradeUnionLeaves-ballance.tradeUnionLeaves}}</strong>
+                                    </div>
+                                </div>
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <p>Remaining</p>
+                                        <strong>{{ballance.tradeUnionLeaves}}</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Casual Leaves</h5>
+                        <div class="card-group">
+                            <div class="card text-center">
+                                <div class="card-header text-justify text-dark">Total Leaves <strong>{{leaves.casualLeave}}</strong></div>
+                                <div class="card-group">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Consumed</p>
+                                            <strong>{{leaves.casualLeave-ballance.casualLeave}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Remaining</p>
+                                            <strong>{{ballance.casualLeave}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Quraintene Leaves</h5>
+                        <div class="card-group">
+                            <div class="card text-center">
+                                <div class="card-header text-justify text-dark">Total Leaves <strong>{{leaves.quarantineLeave}}</strong></div>
+                                <div class="card-group">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Consumed</p>
+                                            <strong>{{leaves.quarantineLeave-ballance.quarantineLeave}}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <p>Remaining</p>
+                                            <strong>{{ballance.quarantineLeave}}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -1,0 +1,176 @@
+<aside id="sidebar" class="sidebar">
+    <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
+                <span>Dashboard</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link " routerLink="/wages-report"> <i class="bi bi-calendar-event"></i>
+                <span>Report</span> </a></li> -->
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i class="bi bi-diagram-3"></i>
+                <span>Holidays</span> </a></li> -->
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
+                <span>Policy</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+                    class="bi bi-bar-chart-steps"></i>
+                <span>Activites</span> </a></li> -->
+    </ul>
+</aside>
+<main id="main" class="main">
+    <div class="row d-flex">
+        <div class="col-8">
+            <div class="pagetitle">
+                <h1>Welcome {{fullName}}<span style="font-size: small;">(WagesIncharge)</span></h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/wages-dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Report</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- <div class="col">
+            <button class="btn btn-primary btn-sm float-end" routerLink="/wages-dashboard" style="font-size: small;">Add
+                Leaves <span><i class="bi bi-plus-lg"></i></span></button>
+            
+        </div> -->
+    </div>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-lg-3 mb-2">
+                <input type="text" class="form-control" placeholder="Employee Name">
+            </div>
+            <div class="col-lg-3 mb-2">
+                <input type="text" class="form-control" placeholder="Employee ID ">
+            </div>
+            <div class="col-lg-3 mb-2">
+                <select class="form-control">
+                    <option value="1" selected>Department</option>
+                    <option value="2">TL</option>
+                    <option value="3">NTL</option>
+                    <option value="4">Self</option>
+                </select>
+            </div>
+            <div class="col-lg-3 mb-2">
+                <button class="btn btn-success form-control"> SEARCH </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <button class="btn btn-primary btn-sm float-end mt-2" routerLink="/wages-addperson" style="font-size: small;">
+                            AddPersons <span><i class="bi bi-plus-lg"></i></span></button>
+                        <h5 class="card-title">Employee Entries</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Employee</th>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Dept</th>
+                                        <th scope="col">From</th>
+                                        <th scope="col">To</th>
+                                        <th scope="col">No of Days</th>
+                                        <th scope="col">Applied To</th>
+                                        <th scope="col">Reason</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- <tr *ngFor="let applied of appliedleaves;">
+                                        <td><img src="assets/img/messages-1.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Seema</td>
+                                        <td>{{applied.leaveType}}</td>
+                                        <td>{{applied.leaveType}}</td>
+                                        <td>{{applied.fromDate | date}}</td>
+                                        <td>{{applied.toDate | date}}</td>
+                                        <td>{{applied.leaveDays}}</td>
+                                        <td>{{applied.applyTo}}</td>
+                                        <td>{{applied.description}}</td>
+                                        <td>{{applied.status}}</td>
+                                    </tr> -->
+                                    <tr>
+                                        <td><img src="assets/img/messages-1.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Seema</td>
+                                        <td>7689</td>
+                                        <td>UI</td>
+                                        <td>2016-05-25</td>
+                                        <td>2016-05-28</td>
+                                        <td>2 Days</td>
+                                        <td>Renita</td>
+                                        <td>Fever</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="assets/img/messages-2.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Reka</td>
+                                        <td>7689</td>
+                                        <td>UI</td>
+                                        <td>2016-05-25</td>
+                                        <td>2016-05-28</td>
+                                        <td>2 Days</td>
+                                        <td>Renita</td>
+                                        <td>Fever</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="assets/img/messages-3.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Raju</td>
+                                        <td>7689</td>
+                                        <td>UI</td>
+                                        <td>2016-05-25</td>
+                                        <td>2016-05-28</td>
+                                        <td>2 Days</td>
+                                        <td>Renita</td>
+                                        <td>Fever</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="assets/img/messages-4.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Varun</td>
+                                        <td>7689</td>
+                                        <td>UI</td>
+                                        <td>2016-05-25</td>
+                                        <td>2016-05-28</td>
+                                        <td>2 Days</td>
+                                        <td>Renita</td>
+                                        <td>Fever</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="assets/img/messages-5.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Kiran</td>
+                                        <td>7689</td>
+                                        <td>UI</td>
+                                        <td>2016-05-25</td>
+                                        <td>2016-05-28</td>
+                                        <td>2 Days</td>
+                                        <td>Renita</td>
+                                        <td>Fever</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="assets/img/messages-6.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Ramya</td>
+                                        <td>7689</td>
+                                        <td>UI</td>
+                                        <td>2016-05-25</td>
+                                        <td>2016-05-28</td>
+                                        <td>2 Days</td>
+                                        <td>Renita</td>
+                                        <td>Fever</td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="assets/img/messages-7.jpg" alt="Profile" class="rounded-circle"
+                                                style="width: 20px; height: 20px;"> Sneha</td>
+                                        <td>7689</td>
+                                        <td>UI</td>
+                                        <td>2016-05-25</td>
+                                        <td>2016-05-28</td>
+                                        <td>2 Days</td>
+                                        <td>Renita</td>
+                                        <td>Fever</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

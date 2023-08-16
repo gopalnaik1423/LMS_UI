@@ -1,0 +1,84 @@
+<aside id="sidebar" class="sidebar">
+    <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-dashboard"> <i
+                    class="bi bi-grid"></i>
+                <span>Dashboard</span> </a></li>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-report"> <i
+                    class="bi bi-calendar-event"></i> <span>Report</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-holiday"> <i class="bi bi-diagram-3"></i>
+                <span>Holidays</span> </a></li> -->
+        <li class="nav-item"> <a class="nav-link " routerLink="/superwiser-policy"> <i
+                    class="bi bi-diagram-3"></i>
+                <span>Policy</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/superwiser-activites"> <i
+                    class="bi bi-bar-chart-steps"></i>
+                <span>Activites</span> </a></li> -->
+    </ul>
+</aside>
+<main id="main" class="main">
+    <div class="pagetitle">
+       <h1>Welcome {{fullName}}<span style="font-size: small;">(Superwiser)</span></h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/doctor-dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active">Policy</li>
+            </ol>
+        </nav>
+    </div>
+    <section class="section">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Policy</h5>
+                    <h6 style="font-weight: bold;">Annual Leave Policy</h6>
+                    <p class="text-justify">Employees can use their annual leave only after confirmation in
+                        the services of the Company (subject to deviations mentioned, here in the policy
+                        document). When an employee serves the Company for part of a year, he/she is
+                        entitled to annual leave on a pro-rata basis calculated for every completed month of
+                        service. All employees are entitled to Annual leave from their DOJ on a prorata
+                        basis. </p>
+                    <h6 style="font-weight: bold;">Sick Leave Policy</h6>
+                    <p class="text-justify">An employee is eligible for three days of sick leave in a year.
+                        Again, only working days shall be taken into consideration while computing the
+                        leaves <br>Sick leave, need to be specifically accompanied with a medical
+                        certificate.
+                        <br> Sick leave may not be carried forward.
+                    </p>
+                    <h6 style="font-weight: bold;">Parental Leave Policy</h6>
+                    <p class="text-justify">Public Holidays Employees are entitled to customary paid
+                        festival and national holidays as outlined by the Company and displayed at the
+                        beginning of each year.
+                    </p>
+                    <h6 style="font-weight: bold;">Bereavement Leave Policy</h6>
+                    <p class="text-justify">Employees are required to apply well in advance for approval of
+                        long annual leave. <br> Employees have to keep his/her Supervisor/HOD informed in
+                        case
+                        of any extension of leave. An act of proceeding on leave without approval in writing
+                        will be treated as an act of misconduct and the employee will be liable to
+                        disciplinary action, if deemed necessary.</p>
+                    <h6 style="font-weight: bold;">Jury Duty Leave Policy</h6>
+                    <p class="text-justify">The
+                        immediate reporting authority has to inform the RHR/Corp HR Team in case of leave
+                        without pay and absconding cases within seven (7) days from the start of such leave.
+                    </p>
+                    <h6 style="font-weight: bold;">Military Leave Policy</h6>
+                    <p class="text-justify"> Leave without pay must be applied under exceptional
+                        circumstances. An employee can apply for leave without pay only when there is no
+                        leave remaining to the employee’s credit. </p>
+                    <h6 style="font-weight: bold;">Sabbaticl Leave Policy</h6>
+                    <p class="text-justify">Permanent employees are eligible for an annual leave of 18
+                        working days. <br> Employees can use their annual leave only after confirmation in
+                        the
+                        services of the Company (subject to deviations mentioned, here in the policy
+                        document) </p>
+                    <h6 style="font-weight: bold;">Personal Leave Policy</h6>
+                    <p class="text-justify">It is the responsibility of the immediate reporting authority to
+                        inform the HR department, if an employee does not report to office, after using the
+                        sanctioned leave within three (3) days from the end of such leave.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

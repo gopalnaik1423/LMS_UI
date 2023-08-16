@@ -1,0 +1,147 @@
+<main>
+    <div class="container">
+        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="d-flex justify-content-center py-2"> <a routerLink="/login"
+                                class="logo d-flex align-items-center w-auto"> <img src="assets/img/logoitc.png" alt=""
+                                    width="30">
+                            </a></div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="pt-1 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Login</h5>
+                                    <p class="text-center small">Acces to our Dashboard</p>
+                                </div>
+                                <form class="row g-3" [formGroup]="ngForm" (ngSubmit)="onSubmit()">
+                                    <div class="col-12">
+                                        <label for="username" class="form-label">User ID</label>
+                                        <div class="input-field"
+                                            [class.error]="ngForm.controls['username'].dirty && ngForm.hasError('required','username')">
+                                             <input formControlName="username" class="form-control" type="text" placeholder="Username" id="username" required>
+                                        </div>
+
+                                        <small
+                                            *ngIf="ngForm.controls['username'].dirty && ngForm.hasError('required','username')"
+                                            class="text-danger">*Username is required*</small>
+
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="password" class="form-label">Password</label>
+                                        <div class="input-group"
+                                            [class.error]="ngForm.controls['password'].dirty && ngForm.hasError('required','password')">
+                                            <input formControlName="password" class="form-control"
+                                                placeholder="Password"   [type]="fieldTextType ? 'text' : 'password'" id="password">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">
+                                                      <i
+                                                      class="bi"
+                                                      [ngClass]="{
+                                                        'bi-eye-slash': !fieldTextType,
+                                                        'bi-eye': fieldTextType
+                                                      }"
+                                                      (click)="toggleFieldTextType()"
+                                                    ></i>
+                                                    </span>
+                                                 </div>
+                                        </div>
+                                        <small
+                                            *ngIf="ngForm.controls['password'].dirty && ngForm.hasError('required','password')"
+                                            class="text-danger">*Password is required*</small>
+                                         
+                                    </div>
+                                    <!-- <div class="col-12"> -->
+                                        <!-- <div class="dropdown">
+                                        <div class="form-select">Select Catagory</div>
+                                        <div class="dropdown-content">
+                                            <a routerLink="/user-dashboard">Employee</a>
+                                            <a routerLink="/doctor-dashboard">Doctor</a>
+                                            <a routerLink="/wages-dashboard">WageIncharge</a>
+                                            <a routerLink="/superwiser-dashboard">Superwiser</a>
+                                            <a routerLink="/dept-dashboard">DeptIncharge</a>
+                                        </div>
+                                    </div> -->
+                                        <!-- <label for="usertype" class="form-label">Select User Type</label>
+                                        <select name="usertype" class="form-select" name="usertype" class="form-select"
+                                            [(ngModel)]="model.usertype" #usertype="ngModel"
+                                            [ngClass]="{ 'is-invalid': userForm.submitted && usertype.invalid }"
+                                            required>
+                                            <option disabled>Select User Type</option>
+                                            <option value="1">Employee</option>
+                                            <option value="2">Doctor</option>
+                                            <option value="3">Superwiser</option>
+                                            <option value="4">WagesInacharge</option>
+                                            <option value="5">DeptIncharge</option>
+                                        </select>
+                                        <div class="invalid-feedback">Please select Usertype!</div> -->
+                                    <!-- </div> -->
+                                    <!-- <a class="small" routerLink="/pages-register">Forgot Password ?</a> -->
+                                    <!-- <div class="form-inline"> <a id="forgot" data-bs-toggle="modal" data-bs-target="#exampleModal" class="font-weight-bold">Forgot password?</a> </div> -->
+                                    <div class="col-12">
+                                        <button class="btn w-100" style="background-color: #003566; color: aliceblue;"
+                                            type="submit">Login</button>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0 text-center">Don't have account? <a id="admin" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="font-weight-bold">Contact Admin</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <p class="modal-title" id="exampleModalLabel"> <span style="font-size: 25px;font-weight:700">Forget your password?</span><br>
+                 </p>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" style="font-size: large;" aria-label="Close"></button>
+
+          </div>
+
+          <div class="modal-body">
+            <small>Please provide your E-mail. <br>We will send the reset link to your company Email-id</small>
+              <div class="form-group pt-3">
+                  <div class="input-field"><input type="text" [(ngModel)]="resetPasswordEmail" (ngModelChange)="checkValidEmail($event)" class="form-control" placeholder="Email"> </div>
+              </div>
+              <small *ngIf="!resetPasswordEmail" class="text-danger">*Email is required*</small><br>
+              <small *ngIf="!isValidEmail && resetPasswordEmail" class="text-danger">*Email is invalid*</small>
+          </div>
+          <div class="modal-footer">
+              <button id="closeBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" (click)="confirmToSend()" class="btn btn-primary">Send</button>
+          </div>
+      </div>
+  </div>
+</div> -->
+
+<!-- for contact admin -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex justify-content-center py-2 my-3"> <a routerLink="/login"
+                class="logo d-flex align-items-center w-auto"> <img src="assets/img/logoitc.png" alt=""
+                    width="30">
+            </a></div>
+            <div class="modal-header" >
+                <p style="margin-left: 120px;">Please Wisit the <a href="https://www.itcportal.com/about-itc/index.aspx">ITC</a> Website </p><br> 
+            </div>
+  
+            <div class="modal-body">
+                <h6 class="">Contact the Admin With Phone Number or Email </h6>
+                <p class="small">Phone Number: +19 XXXXX-98787</p>
+                <p class="small">Email: XYZ@gmail.com</p>
+                <p class="small">Website: <a href="">ITCWebsite.com</a></p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+  </div>

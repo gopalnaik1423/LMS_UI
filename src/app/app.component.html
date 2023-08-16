@@ -1,0 +1,15 @@
+<app-header *ngIf="!(_router.url === '/' || _router.url === '/login' || _router.url === '/reset?email=basavarajbd72@gmail.com&code=H%2F0qO%2FgwzsBZem9aZPdEj65hw3SPFneTPuGGhi%20vMblS%20DPV0HczMT0MwOfzxjzep5uckWAFE7xMjXpaxqigxg%3D%3D')" ></app-header>
+<!-- <app-sidebar *ngIf="!(_router.url === '/pages-register' || _router.url === '/login' || _router.url === '/pages-error404')" ></app-sidebar> -->
+<router-outlet ></router-outlet>
+<div id="overlay" *ngIf="pgbarstatus" class="h-100 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"> <span class="visually-hidden">Loading...</span></div>
+                     <div class="spinner-grow text-secondary" role="status"> <span class="visually-hidden">Loading...</span></div>
+                     <div class="spinner-grow text-success" role="status"> <span class="visually-hidden">Loading...</span></div>
+                     <div class="spinner-grow text-danger" role="status"> <span class="visually-hidden">Loading...</span></div>
+                     <div class="spinner-grow text-warning" role="status"> <span class="visually-hidden">Loading...</span></div>
+                     <div class="spinner-grow text-info" role="status"> <span class="visually-hidden">Loading...</span></div>
+                     <div class="spinner-grow text-light" role="status"> <span class="visually-hidden">Loading...</span></div>
+                     <div class="spinner-grow text-dark" role="status"> <span class="visually-hidden">Loading...</span></div>
+  </div>
+<app-footer *ngIf="!(_router.url === '/' || _router.url === '/login' || _router.url === '/reset?email=basavarajbd72@gmail.com&code=H%2F0qO%2FgwzsBZem9aZPdEj65hw3SPFneTPuGGhi%20vMblS%20DPV0HczMT0MwOfzxjzep5uckWAFE7xMjXpaxqigxg%3D%3D'|| _router.url === '/profile')" ></app-footer>
+<div id="toastcontainer" class="position-fixed bottom-0 end-0 p-3" ></div>

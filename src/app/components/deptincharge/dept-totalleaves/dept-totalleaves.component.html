@@ -1,0 +1,177 @@
+<aside id="sidebar" class="sidebar">
+    <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
+    <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item"> <a class="nav-link " routerLink="/dept-dashboard"> <i class="bi bi-grid"></i>
+                <span>Dashboard</span> </a></li>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-addleaves"> <i
+                    class="bi bi-calendar-event"></i> <span>Leave</span> </a></li>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-report"> <i
+                    class="bi bi-file-earmark-bar-graph"></i>
+                <span>Report</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-holiday"> <i
+                    class="bi bi-calendar-week"></i>
+                <span>Holidays</span> </a></li> -->
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-policy"> <i class="bi bi-diagram-3"></i>
+                <span>Policy</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-activites"> <i
+                    class="bi bi-bar-chart-steps"></i>
+                <span>Activites</span> </a></li> -->
+    </ul>
+</aside>
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Welcome {{fullName}} <span style="font-size: small;">({{role}})</span></h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/dept-dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active">Total Employees</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section dashboard">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card" (click)="Dash()">
+                    <a class="btn btn-outline-primary btn-md" style="width: auto; height: auto; ">
+                    Total Employees<b class="text-dark"> {{totalemp}}</b>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" (click)="tabone()">
+                    <a class="btn btn-outline-primary btn-md" style="width: auto; height: auto;">
+                        No. of Present
+                        <b class="text-dark">{{totalemp-onLeave}}</b>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" (click)="tabTwo()">
+                    <a class="btn btn-outline-primary btn-md" style="width: auto; height: auto;">
+                        No. of On Leaves
+                        <b class="text-dark">{{onLeave}}</b>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <!-- <div class="card" routerLink="/dept-addperson">
+                    <a class="btn btn-primary btn-md" style="width: auto; height: auto;">
+                        Add Persons
+                        <b><i class="bi bi-plus-lg" style="font-size: medium;"></i></b>
+                    </a>
+                </div> -->
+            </div>
+        </div>
+        <!-- <div class="row mb-3">
+            <div class="col-lg-3 mb-2">
+                <input type="text" class="form-control bg-light" placeholder="Employee Name">
+            </div>
+            <div class="col-lg-3 mb-2">
+                <input type="text" class="form-control bg-light" placeholder="Employee ID ">
+            </div>
+            <div class="col-lg-3 mb-2">
+                <select class="form-control bg-light">
+                    <option value="1" selected>Department</option>
+                    <option value="2">TL</option>
+                    <option value="3">NTL</option>
+                    <option value="4">Self</option>
+                </select>
+            </div>
+            <div class="col-lg-3 mb-2">
+                <button class="btn btn-success form-control"> SEARCH </button>
+            </div>
+        </div> -->
+        <div class="row" *ngIf="showElement">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Employees</h5>
+                        <div class="table-responsive">
+                            <!-- Horizontal Form -->
+                            <div class="iconslist">
+                                <div class="icon border" *ngFor="let empP of empAllData">
+                                    <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
+                                        style="width: 30px; height: 30px;">
+                                    <div class="label">
+                                        <b>{{empP.Name}}</b>
+                                        <p>ID:{{empP.EmpCode}} | Category:{{empP.EmpCat}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="onPresentdash">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee Entries In Present</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">EmpID</th>
+                                        <th scope="col">Employee Name</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">Email ID</th>
+                                        <th scope="col">Contact Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let onPrasetD of OnPrasentData">
+                                        <td>{{onPrasetD.empInfo}}</td>
+                                        <td>{{onPrasetD.empName}}</td>
+                                        <td>{{onPrasetD.role}}</td>
+                                        <td>{{onPrasetD.catagory}}</td>
+                                        <td>{{onPrasetD.emailID}}</td>
+                                        <td>{{onPrasetD.phone}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"  *ngIf="onLeavesdash">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Employee Entries OnLeave</h5>
+                        <div class="table-responsive">
+                            <table class="table table-hover" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">EmpID</th>
+                                        <th scope="col">Employee Name</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Department</th>
+                                        <th scope="col">No Of Days</th>
+                                        <th scope="col">Email ID</th>
+                                        <th scope="col">Contact Number</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let onLeaveD of OnLevaeData">
+                                        <td>{{onLeaveD.empInfo}}</td>
+                                        <td>{{onLeaveD.empName}}</td>
+                                        <td>{{onLeaveD.role}}</td>
+                                        <td>{{onLeaveD.catagory}}</td>
+                                        <td>{{onLeaveD.leaveDays}}</td>
+                                        <td>{{onLeaveD.emailID}}</td>
+                                        <td>{{onLeaveD.phone}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

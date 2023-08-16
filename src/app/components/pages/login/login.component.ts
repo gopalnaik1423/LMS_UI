@@ -64,10 +64,12 @@ export class LoginComponent implements OnInit {
           }
           else if (this.role === 'Doctor') {
             this.router.navigate(['doctor-dashboard'])
+          } else if (this.role === 'Superwiser') {
+            this.router.navigate(['superwiser-dashboard'])
           }
           else {
             this.router.navigate(['login']);
-            this.snk.SendSnackBarMsgDanger("! Invalid Role !");
+            this.snk.SendSnackBarMsgDanger("! Invalid Login !");
           }
         }),
         error: (err) => {

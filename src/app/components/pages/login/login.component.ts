@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     this.ngForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      //test
     });
     const token=localStorage.getItem('token');
     const jwtHelper = new JwtHelperService();

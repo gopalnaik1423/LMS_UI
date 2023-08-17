@@ -1,7 +1,7 @@
 <aside id="sidebar" class="sidebar">
     <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
     <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item"> <a class="nav-link " (click)="Dash()" > <i class="bi bi-grid"></i>
+        <li class="nav-item"> <a class="nav-link " (click)="Dash()"> <i class="bi bi-grid"></i>
                 <span>Dashboard</span> </a></li>
         <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
                     class="bi bi-calendar-event"></i> <span>Report</span> </a></li> -->
@@ -9,14 +9,14 @@
                 <span>Holidays</span> </a></li> -->
         <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
                 <span>Policy</span> </a></li>
-        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-control"> <i
                     class="bi bi-bar-chart-steps"></i>
-                <span>Activites</span> </a></li> -->
+                <span>controls</span> </a></li>
     </ul>
 </aside>
 <main id="main" class="main">
     <div class="pagetitle">
-       <h1>Welcome {{fullName}}<span style="font-size: small;">(WageIncharge)</span></h1>
+        <h1>Welcome {{fullName}}<span style="font-size: small;">(WageIncharge)</span></h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">Dashboard</li>
@@ -24,7 +24,7 @@
         </nav>
     </div>
 
-    <section  class="section dashboard">
+    <section class="section dashboard">
         <div *ngIf="selectRole=='Self' || 'Be Half'" class="row">
             <div class="col-sm-3">
                 <div class="card bg-primary text-light" (click)="tabone()">
@@ -76,50 +76,59 @@
                             </div> -->
                             <div class="col-md-6">
                                 <label class="form-label">Select Catagory</label>
-                                <select id="leaveType"  (change)="onDropdownChange($event)" formControlName="appliedType"  class="form-select">
+                                <select id="leaveType" (change)="onDropdownChange($event)" formControlName="appliedType"
+                                    class="form-select">
                                     <option selected>Select Type</option>
                                     <option value="self">Self</option>
                                     <option value="beHalf">Be Half</option>
                                 </select>
-                               
+
                             </div>
-                            <div  class="col-md-6">
+                            <div class="col-md-6">
                                 <label for="leaveType" class="form-label">Leave Type</label>
-                                <select name="LeaveType" id="leaveType" formControlName="leaveType" class="form-select" *ngIf="!dptEmpShow1">
+                                <select name="LeaveType" id="leaveType" formControlName="leaveType" class="form-select"
+                                    *ngIf="!dptEmpShow1">
                                     <option selected>Please Select</option>
-                                    <option *ngIf="cat=='NSA' || cat=='TECHNICIANS' || cat=='SG' || cat=='SCA'" value="Casual">Casual</option>
+                                    <option *ngIf="cat=='NSA' || cat=='TECHNICIANS' || cat=='SG' || cat=='SCA'"
+                                        value="Casual">Casual</option>
                                     <option *ngIf="cat=='MO'" value="Sick">Sick</option>
-                                    <option *ngIf="cat=='NSA' || cat=='TECHNICIANS'|| cat=='SG' " value="Annual">Annual</option>
+                                    <option *ngIf="cat=='NSA' || cat=='TECHNICIANS'|| cat=='SG' " value="Annual">Annual
+                                    </option>
                                 </select>
-                                <select name="LeaveType" id="leaveType" formControlName="leaveType" class="form-select" *ngIf="!dptEmpShow">
+                                <select name="LeaveType" id="leaveType" formControlName="leaveType" class="form-select"
+                                    *ngIf="!dptEmpShow">
                                     <option selected>Please Select</option>
-                                    <option  value="TUL">TUL</option>
-                                    <option  value="OD">OD</option>
-                                    <option  value="QL">QL</option>
+                                    <option value="TUL">TUL</option>
+                                    <option value="OD">OD</option>
+                                    <option value="QL">QL</option>
                                 </select>
                             </div>
                             <div class="col-md-12" *ngIf="showDropDown">
-                                <select name="selectEmp" id="selectEmp" (change)="onGetEmployee($event)" formControlName="modifiedByID" class="form-select">
+                                <select name="selectEmp" id="selectEmp" (change)="onGetEmployee($event)"
+                                    formControlName="modifiedByID" class="form-select">
                                     <option value="0" selected disabled>Select Employee</option>
-                                    <option *ngFor="let empD of empData" [value]="empD.EmpCode">{{empD.EmpCode+" - "+empD.Name}}</option>
+                                    <option *ngFor="let empD of empData" [value]="empD.EmpCode">{{empD.EmpCode+" -
+                                        "+empD.Name}}</option>
                                 </select>
                             </div>
-                            <div class="col-md-6"> <label for="date"  class="form-label">From Date</label>
-                                <input type="date" class="form-control" [min]="maxDate" formControlName="fromDate" placeholder="no">
+                            <div class="col-md-6"> <label for="date" class="form-label">From Date</label>
+                                <input type="date" class="form-control" [min]="maxDate" formControlName="fromDate"
+                                    placeholder="no">
                             </div>
-                            <div class="col-md-6"> <label for="date"  class="form-label">To Date</label>
-                                <input type="date" class="form-control" [min]="maxDate" formControlName="todate" 
+                            <div class="col-md-6"> <label for="date" class="form-label">To Date</label>
+                                <input type="date" class="form-control" [min]="maxDate" formControlName="todate"
                                     placeholder="To Date">
                             </div>
-                            <div class="col-md-6"> <label for="Sessions"  class="form-label">From Session</label>
-                                <select name="Sessions" id="sessions1" formControlName="fromSession" class="form-control">
+                            <div class="col-md-6"> <label for="Sessions" class="form-label">From Session</label>
+                                <select name="Sessions" id="sessions1" formControlName="fromSession"
+                                    class="form-control">
                                     <option value="0" selected disabled>Select Session</option>
                                     <option value="session1">Session 1</option>
                                     <option value="session2">Session 2</option>
                                 </select>
                             </div>
                             <div class="col-md-6"> <label for="Sessions" class="form-label">To Session</label>
-                                <select name="Sessions" id="sessions2"  formControlName="toSession" class="form-control">
+                                <select name="Sessions" id="sessions2" formControlName="toSession" class="form-control">
                                     <option value="0" selected disabled>Select Session</option>
                                     <option value="session1">Session 1</option>
                                     <option value="session2">Session 2</option>
@@ -136,14 +145,16 @@
                             </div>
                             <div class="col-12" id="emaildisplay" style="display: none;">
                                 <div class="d-flex">
-                                    <input type="email" class="form-control" formControlName="applyTo" placeholder="Enter Email Id">
-                                    <i class="bi bi-x-lg" onclick="toggle()" style="color: red; float: right; padding-left:10px;"></i>
+                                    <input type="email" class="form-control" formControlName="applyTo"
+                                        placeholder="Enter Email Id">
+                                    <i class="bi bi-x-lg" onclick="toggle()"
+                                        style="color: red; float: right; padding-left:10px;"></i>
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <textarea name="comment" id="comment" formControlName="description" placeholder="Enter Reason" cols="10"
-                                    class="form-control" rows="3"></textarea>
+                                <textarea name="comment" id="comment" formControlName="description"
+                                    placeholder="Enter Reason" cols="10" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="col-12">
                                 <label class="d-inline-block text-primary m-auto"><input type="file"
@@ -175,7 +186,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a id="admin" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="float-end">See All Holidays</a>
+                        <a id="admin" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                            class="float-end">See All Holidays</a>
                     </div>
                 </div>
                 <div class="card">
@@ -366,29 +378,29 @@
             </div>
         </div>
     </section>
-    <!-- !-- Get All Holidays --> 
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header" >
-                <p class="card-title">Holidays</p><br> 
-            </div>
-  
-            <div class="modal-body">
-                <table class="table table-borderless table-sm">
-                    <tbody>
-                        <tr *ngFor="let data of allHoliday; let i=index">
-                            <td>{{i+1}}</td>
-                            <td>{{data.holidayName}}</td>
-                            <td>{{data.holidayDate| date}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- !-- Get All Holidays -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="card-title">Holidays</p><br>
+                </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="modal-body">
+                    <table class="table table-borderless table-sm">
+                        <tbody>
+                            <tr *ngFor="let data of allHoliday; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{data.holidayName}}</td>
+                                <td>{{data.holidayDate| date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-  </div>

@@ -79,10 +79,11 @@ export class WagesControlComponent implements OnInit {
     if (this.file1) {
       this.applayServ.UploadUserFromExcel(this.file1).subscribe({
         next: (res) => {
-          console.log(res);
+          console.log('File uploaded successfully', res);
         },
         error: (err) => {
           console.log(err);
+          console.error('Error uploading file', err);
         }
       });
     } else {
@@ -111,6 +112,7 @@ export class WagesControlComponent implements OnInit {
     this.file3 = event.target.files[0];
   }
   uploadingFile3() {
+    debugger
     console.log(this.file3)
     if (this.file3) {
       this.applayServ.postleaveData(this.file3).subscribe({

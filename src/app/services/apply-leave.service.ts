@@ -43,7 +43,7 @@ export class ApplyLeaveService {
   postleaveData(file: any):Observable<any> {
     const formData1 = new FormData();
     formData1.append("file", file, file.name);
-      return this.http.post<any>(this.baseUrl+'UploadUserFromExcel', formData1);
+      return this.http.post<any>(this.baseUrl+'postleaveData', formData1);
   }
   generateExcel(data: any[], fileName: string) 
   { 

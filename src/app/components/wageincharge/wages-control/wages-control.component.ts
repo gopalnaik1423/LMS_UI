@@ -32,6 +32,7 @@ export class WagesControlComponent implements OnInit {
   data = [
     { empInfoId: '12', UserName: 'Basavaraj', password:'Admin@123',email:'basavaraj@gmail.com',isActive:1,Attempts:0,isLocked:0,isLD:'11/08/2023',role:'SG' },
     { empInfoId: '13', UserName: 'Shiva', password:'Shiva@123',email:'shiva@gmail.com',isActive:1,Attempts:0,isLocked:0,isLD:'12/08/2023',role:'NSB' },
+    { empInfoId: '14', UserName: 'Ravi', password:'Ravi@123',email:'ravi@gmail.com',isActive:1,Attempts:0,isLocked:0,isLD:'14/08/2023',role:'NSA' },
     // Add more data as needed
   ];
   constructor(private snk: SnackBarService, @Inject(DOCUMENT) private document: Document, private elementRef: ElementRef, public _router: Router, private userStore: UserStoreService, private auth: AuthService, private fb: FormBuilder, private pgbar: ProgressBarBehaviourSubject, private applayServ: ApplyLeaveService, private api: ApiService,private formb:FormBuilder) {
@@ -50,16 +51,13 @@ export class WagesControlComponent implements OnInit {
         console.log(res);
       });
       this.uploadFile1 = this.formb.group({
-        file1: ['', [Validators.required]],
-   
+        file1: ['', [Validators.required]]
       });
       this.uploadFile2 = this.formb.group({
-        file2: ['', [Validators.required]],
-   
+        file2: ['', [Validators.required]]
       });
       this.uploadFile3 = this.formb.group({
-        file3: ['', [Validators.required]],
-   
+        file3: ['', [Validators.required]]
       });
   }
   get f1() { return this.uploadFile1.controls; }
@@ -84,6 +82,7 @@ export class WagesControlComponent implements OnInit {
         error: (err) => {
           console.log(err);
           console.error('Error uploading file', err);
+
         }
       });
     } else {
@@ -96,12 +95,15 @@ export class WagesControlComponent implements OnInit {
   uploadingFile2() {
     console.log(this.file2)
     if (this.file2) {
-      this.applayServ.UploadUserFromExcel(this.file2).subscribe({
+      this.applayServ.uploadEmpInfoFromExcel(this.file2).subscribe({
         next: (res) => {
-          console.log(res);
+          console.log('File uploaded successfully', res);
+          this.uploadFile2.reset();
         },
         error: (err) => {
           console.log(err);
+          console.error('Error uploading file', err);
+          this.uploadFile2.reset();
         }
       });
     } else {
@@ -112,15 +114,15 @@ export class WagesControlComponent implements OnInit {
     this.file3 = event.target.files[0];
   }
   uploadingFile3() {
-    debugger
     console.log(this.file3)
     if (this.file3) {
       this.applayServ.postleaveData(this.file3).subscribe({
         next: (res) => {
-          console.log(res);
+          console.log('File uploaded successfully', res);
         },
         error: (err) => {
           console.log(err);
+          console.error('Error uploading file', err);
         }
       });
     } else {

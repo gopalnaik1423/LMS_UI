@@ -7,7 +7,7 @@ import * as XLSX from 'xlsx';
 })
 export class ApplyLeaveService {
 
-  private baseUrl:string="https://localhost:7058/api/User"
+  private baseUrl:string="https://localhost:7058/api/User/"
   constructor(private http:HttpClient) { }
 
   errorHandler(error: HttpErrorResponse): Observable<string> {
@@ -38,12 +38,20 @@ export class ApplyLeaveService {
   UploadUserFromExcel(file: any):Observable<any> {
     const formData1 = new FormData();
     formData1.append("file", file, file.name);
-      return this.http.post<any>(this.baseUrl+'UploadUserFromExcel', formData1);
+      return this.http.post<any>(this.baseUrl+'UploadUserFromExcel', formData1)
+      .pipe(catchError(this.errorHandler));
   }
   postleaveData(file: any):Observable<any> {
-    const formData1 = new FormData();
-    formData1.append("file", file, file.name);
-      return this.http.post<any>(this.baseUrl+'postleaveData', formData1);
+    const formData2 = new FormData();
+    formData2.append("file", file, file.name);
+      return this.http.post<any>(this.baseUrl+'postleaveData', formData2)
+      .pipe(catchError(this.errorHandler));
+  }
+  uploadEmpInfoFromExcel(file: any):Observable<any> {
+    const formData3 = new FormData();
+    formData3.append("file", file, file.name);
+      return this.http.post<any>(this.baseUrl+'uploadEmpInfoFromExcel', formData3)
+      .pipe(catchError(this.errorHandler));
   }
   generateExcel(data: any[], fileName: string) 
   { 

@@ -130,6 +130,6 @@ export class WagesControlComponent implements OnInit {
     }
   }
   generateExcel() {
-    this.applayServ.generateExcel(this.data, 'sample');
+    // this.applayServ.generateExcel(this.data, 'sample');
   }
 }

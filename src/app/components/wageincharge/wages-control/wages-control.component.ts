@@ -72,11 +72,12 @@ export class WagesControlComponent implements OnInit {
       this.applayServ.UploadUserFromExcel(this.file1).subscribe({
         next: (res) => {
           console.log('File uploaded successfully', res);
+          this.uploadFile1.reset();
         },
         error: (err) => {
           console.log(err);
           console.error('Error uploading file', err);
-
+          this.uploadFile1.reset();
         }
       });
     } else {

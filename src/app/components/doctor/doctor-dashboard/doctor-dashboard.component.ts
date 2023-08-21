@@ -94,7 +94,7 @@ export class DoctorDashboardComponent implements OnInit {
     this.tab2 = false;
     this.tab3 = false;
     this.tab4 = false;
-    this.getLeaves();
+    this.getLeaves(this.dptEmpId);
     this.getLeavesRemaining(this.dptEmpId);
    // this.tabCount = 1;
 }
@@ -234,14 +234,13 @@ getLeaveApplied(id:any){
   }
 
   maxDate = new Date(new Date().getTime() + 86400000).toISOString().substring(0, 10);
-   //get empid
 
-  getLeaves(){
-    const id = this.empInfoId;
+  getLeaves(id:any){
+    // const id = this.empInfoId;
     this.api.getLeavesData(id)
       .subscribe(res => {
         this.leaves = res[0];
-        // console.log(this.leaves);
+        console.log(this.leaves);
       });
   }
     //get leave status

@@ -29,12 +29,6 @@ export class WagesControlComponent implements OnInit {
   uploadFile2: any = FormGroup;
   uploadFile3: any = FormGroup;
   submitted = false;
-  data = [
-    { empInfoId: '12', UserName: 'Basavaraj', password:'Admin@123',email:'basavaraj@gmail.com',isActive:1,Attempts:0,isLocked:0,isLD:'11/08/2023',role:'SG' },
-    { empInfoId: '13', UserName: 'Shiva', password:'Shiva@123',email:'shiva@gmail.com',isActive:1,Attempts:0,isLocked:0,isLD:'12/08/2023',role:'NSB' },
-    { empInfoId: '14', UserName: 'Ravi', password:'Ravi@123',email:'ravi@gmail.com',isActive:1,Attempts:0,isLocked:0,isLD:'14/08/2023',role:'NSA' },
-    // Add more data as needed
-  ];
   constructor(private snk: SnackBarService, @Inject(DOCUMENT) private document: Document, private elementRef: ElementRef, public _router: Router, private userStore: UserStoreService, private auth: AuthService, private fb: FormBuilder, private pgbar: ProgressBarBehaviourSubject, private applayServ: ApplyLeaveService, private api: ApiService,private formb:FormBuilder) {
 
   }
@@ -128,8 +122,5 @@ export class WagesControlComponent implements OnInit {
     } else {
       console.error('No file selected.');
     }
-  }
-  generateExcel() {
-    // this.applayServ.generateExcel(this.data, 'sample');
   }
 }

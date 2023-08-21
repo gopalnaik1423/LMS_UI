@@ -35,9 +35,6 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
       //test
     });
-    const token=localStorage.getItem('token');
-    const jwtHelper = new JwtHelperService();
-    this.role =  jwtHelper.decodeToken(token!).role;
   }
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
@@ -50,6 +47,9 @@ export class LoginComponent implements OnInit {
         next: (res => {
           localStorage.setItem('token', res.accessToken);
           localStorage.setItem('refreshToken', res.refreshToken);
+          const token=localStorage.getItem('token');
+          const jwtHelper = new JwtHelperService();
+          this.role =  jwtHelper.decodeToken(token!).role;
           this.ngForm.reset();
           this.snk.SendSnackBarMsgSuccess("! Login Successfully !");
           this.pgbar.hide();

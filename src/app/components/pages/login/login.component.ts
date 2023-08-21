@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
+    //second chganges
   }
   onSubmit() {
     if (this.ngForm.valid) {
@@ -65,6 +66,9 @@ export class LoginComponent implements OnInit {
           else if (this.role === 'Doctor') {
             this.router.navigate(['doctor-dashboard'])
           } else if (this.role === 'Superwiser') {
+            this.router.navigate(['superwiser-dashboard'])
+          }
+          else if (this.role === 'Superwiser') {
             this.router.navigate(['superwiser-dashboard'])
           }
           else {
@@ -109,5 +113,6 @@ export class LoginComponent implements OnInit {
         })
     }
   }
+  //thierd changes made here
 
 }

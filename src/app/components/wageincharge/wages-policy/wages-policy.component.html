@@ -1,24 +1,23 @@
 <aside id="sidebar" class="sidebar">
     <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
     <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i
-                    class="bi bi-grid"></i>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
                 <span>Dashboard</span> </a></li>
-        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
-                    class="bi bi-calendar-event"></i> <span>Report</span> </a></li> -->
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
+                    class="bi bi-calendar-event"></i> <span>Report</span> </a></li>
         <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i
                     class="bi bi-diagram-3"></i>
                 <span>Holidays</span> </a></li> -->
         <li class="nav-item"> <a class="nav-link " routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
                 <span>Policy</span> </a></li>
-        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-control"> <i
                     class="bi bi-bar-chart-steps"></i>
-                <span>Activites</span> </a></li> -->
+                <span>controls</span> </a></li>
     </ul>
 </aside>
 <main id="main" class="main">
     <div class="pagetitle">
-       <h1>Welcome {{fullName}}<span style="font-size: small;">(WageIncharge)</span></h1>
+        <h1>Welcome {{fullName}}<span style="font-size: small;">(WageIncharge)</span></h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/wages-dashboard">Dashboard</a></li>

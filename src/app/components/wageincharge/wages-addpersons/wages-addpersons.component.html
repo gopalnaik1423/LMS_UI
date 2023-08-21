@@ -1,20 +1,18 @@
 <aside id="sidebar" class="sidebar">
     <i class="bi bi-x-lg" id="nav-close" (click)="sidebarToggle()"></i>
     <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i
-                    class="bi bi-grid"></i>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-dashboard"> <i class="bi bi-grid"></i>
                 <span>Dashboard</span> </a></li>
         <li class="nav-item"> <a class="nav-link " routerLink="/wages-report"> <i class="bi bi-calendar-event"></i>
                 <span>Report</span> </a></li>
         <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i
                     class="bi bi-diagram-3"></i>
                 <span>Holidays</span> </a></li> -->
-        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i
-                    class="bi bi-diagram-3"></i>
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
                 <span>Policy</span> </a></li>
-        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-activites"> <i
+        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-control"> <i
                     class="bi bi-bar-chart-steps"></i>
-                <span>Activites</span> </a></li> -->
+                <span>controls</span> </a></li>
     </ul>
 </aside>
 <main id="main" class="main">
@@ -36,13 +34,16 @@
                         <h5 class="card-title">Basic Detailes</h5>
                         <form class="row g-3" [formGroup]="addPerson">
                             <div class="col-md-6">
-                                <input type="text" formControlName="empName" class="form-control" placeholder="Employee Name">
+                                <input type="text" formControlName="empName" class="form-control"
+                                    placeholder="Employee Name">
                             </div>
                             <div class="col-md-6">
-                                <input type="text" formControlName="empId" class="form-control" placeholder="Employee ID">
+                                <input type="text" formControlName="empId" class="form-control"
+                                    placeholder="Employee ID">
                             </div>
                             <div class="col-md-12">
-                                <input type="text" formControlName="email" class="form-control" placeholder="Employee Email">
+                                <input type="text" formControlName="email" class="form-control"
+                                    placeholder="Employee Email">
                             </div>
                             <h5 class="card-title">Employee Detailes</h5>
                             <div class="col-md-6">
@@ -56,11 +57,11 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <input type="date" class="form-control" formControlName="startDate"  name="fromDate" id="date"
-                                    placeholder="Start Date">
+                                <input type="date" class="form-control" formControlName="startDate" name="fromDate"
+                                    id="date" placeholder="Start Date">
                             </div>
                             <div class="col-md-12">
-                                <select class="form-select" formControlName="cetagory" >
+                                <select class="form-select" formControlName="cetagory">
                                     <option value="0" selected disabled>Job Type</option>
                                     <option value="1">NSD</option>
                                     <option value="2">OL</option>
@@ -75,15 +76,15 @@
                                     <label for="radio">Employee Type</label>
                                     <div class="col-12 d-flex my-2">
                                         <div class="form-check mx-2">
-                                            <input class="form-check-input" formControlName="jobType"  type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
+                                            <input class="form-check-input" formControlName="jobType" type="radio"
+                                                name="flexRadioDefault" id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Permanent
                                             </label>
                                         </div>
                                         <div class="form-check mx-2">
-                                            <input class="form-check-input" formControlName="jobType"  type="radio" name="flexRadioDefault"
-                                                id="flexRadioDefault1">
+                                            <input class="form-check-input" formControlName="jobType" type="radio"
+                                                name="flexRadioDefault" id="flexRadioDefault1">
                                             <label class="form-check-label" for="flexRadioDefault1">
                                                 Free Lancher
                                             </label>

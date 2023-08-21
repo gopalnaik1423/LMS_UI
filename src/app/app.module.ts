@@ -32,6 +32,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ResetpasswordComponent } from './components/pages/resetpassword/resetpassword.component';
 import { WagesAddpersonsComponent } from './components/wageincharge/wages-addpersons/wages-addpersons.component';
 import {DataTablesModule} from 'angular-datatables';
+import { WagesControlComponent } from './components/wageincharge/wages-control/wages-control.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {DataTablesModule} from 'angular-datatables';
     ProfileComponent,
     ResetpasswordComponent,
     WagesAddpersonsComponent,
+    WagesControlComponent,
   ],
   imports: [
     BrowserModule,

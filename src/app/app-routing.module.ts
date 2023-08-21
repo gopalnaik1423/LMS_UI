@@ -22,6 +22,7 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ResetpasswordComponent } from './components/pages/resetpassword/resetpassword.component';
 import { WagesAddpersonsComponent } from './components/wageincharge/wages-addpersons/wages-addpersons.component';
+import { WagesControlComponent } from './components/wageincharge/wages-control/wages-control.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'wages-addperson', component: WagesAddpersonsComponent, canActivate: [AuthGuard] },
   { path: 'wages-report', component: WagesReportComponent, canActivate: [AuthGuard] },
   { path: 'wages-policy', component: WagesPolicyComponent, canActivate: [AuthGuard] },
+  { path: 'wages-control', component: WagesControlComponent, canActivate: [AuthGuard] },
   //deptincharge roting page
   { path: 'dept-dashboard', component: DeptDashboardComponent, canActivate: [AuthGuard] },
   { path: 'dept-report', component: DeptReportComponent, canActivate: [AuthGuard] },

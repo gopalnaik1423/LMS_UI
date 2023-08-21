@@ -26,7 +26,6 @@ export class WagesPolicyComponent implements OnInit {
       })
   }
   sidebarToggle() {
-    //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');
   }
 

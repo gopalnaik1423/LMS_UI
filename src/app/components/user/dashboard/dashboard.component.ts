@@ -56,8 +56,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const token=localStorage.getItem('token');
     const jwtHelper = new JwtHelperService();
-    console.log("token-->",jwtHelper.decodeToken(token!).nameid)
     this.tokenID = jwtHelper.decodeToken(token!).nameid;
+    this.role =  jwtHelper.decodeToken(token!).role;
+    this.fullName =  jwtHelper.decodeToken(token!).unique_name;
+    this.cat =   jwtHelper.decodeToken(token!).certpublickey;
     this.InitiatilizeFielsd();
     // this.getEmpinfoId();
     this.getHolidaysDatas();
@@ -71,14 +73,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
    
 
-  this.api.getUserDetails(token)
-  .subscribe(res => {
+  // this.api.getUserDetails(token)
+  // .subscribe(res => {
     
-    this.role=res[0].role;
-    this.fullName=res[0].username;  
-    this.cat = res[0].category;
-    console.log(res);
-  });
+  //   this.role=res[0].role;
+  //   this.fullName=res[0].username;  
+  //   this.cat = res[0].category;
+  //   console.log(res);
+  // });
     // this.getActivitesData();
   }
   ngOnDestroy(): void {

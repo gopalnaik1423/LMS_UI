@@ -65,63 +65,59 @@ export class WagesControlComponent implements OnInit {
     this.file1 = event.target.files[0];
   }
   uploadingFile1() {
-    debugger
-    console.log(this.file1)
     this.submitted=true;
     if (this.file1) {
       this.applayServ.UploadUserFromExcel(this.file1).subscribe({
-        next: (res) => {
-          console.log('File uploaded successfully', res);
+        next: (res => {
           this.uploadFile1.reset();
-        },
-        error: (err) => {
+          this.snk.SendSnackBarMsgSuccess("User Data Uploaded Succesfully");
+        }),
+        error: (err => {
           console.log(err);
-          console.error('Error uploading file', err);
+          this.snk.SendSnackBarMsgDanger(err);
           this.uploadFile1.reset();
-        }
+        })
       });
     } else {
-      console.error('No file selected.');
+      this.snk.SendSnackBarMsgWarning('No file selected.');
     }
   }
   onFileChange2(event: any) {
     this.file2 = event.target.files[0];
   }
   uploadingFile2() {
-    console.log(this.file2)
     if (this.file2) {
       this.applayServ.uploadEmpInfoFromExcel(this.file2).subscribe({
-        next: (res) => {
-          console.log('File uploaded successfully', res);
+        next: (res => {
           this.uploadFile2.reset();
-        },
-        error: (err) => {
-          console.log(err);
-          console.error('Error uploading file', err);
+          this.snk.SendSnackBarMsgSuccess("EmpInfo data saved successfully.");
+        }),
+        error: (err => {
           this.uploadFile2.reset();
-        }
+          this.snk.SendSnackBarMsgDanger(err);
+        })
       });
     } else {
-      console.error('No file selected.');
+      this.snk.SendSnackBarMsgWarning('No file selected.');
     }
   }
   onFileChange3(event: any) {
     this.file3 = event.target.files[0];
   }
   uploadingFile3() {
-    console.log(this.file3)
     if (this.file3) {
       this.applayServ.postleaveData(this.file3).subscribe({
-        next: (res) => {
-          console.log('File uploaded successfully', res);
-        },
-        error: (err) => {
-          console.log(err);
-          console.error('Error uploading file', err);
-        }
+        next: (res => {
+          this.uploadFile3.reset();
+          this.snk.SendSnackBarMsgSuccess("Leave Data Saved Successfully");
+        }),
+        error: (err => {
+          this.uploadFile3.reset();
+          this.snk.SendSnackBarMsgDanger(err);
+        })
       });
     } else {
-      console.error('No file selected.');
+      this.snk.SendSnackBarMsgWarning('No file selected.');
     }
   }
 }

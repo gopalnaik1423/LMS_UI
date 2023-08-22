@@ -288,8 +288,9 @@ getLeaveApplied(id:any){
       const id = this.empInfoId;
       this.api.GetWageInchargeEmpDetails(id)
         .subscribe(res => {
-          this.empData = res;
-          // console.log(this.empData);
+          if(res.length != 0){
+            this.empData = res;
+          }
         });
     }
   sidebarToggle() {

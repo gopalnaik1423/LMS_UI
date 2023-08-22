@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
@@ -11,17 +12,29 @@ import { UserStoreService } from 'src/app/services/user-store.service';
   styleUrls: ['./leave.component.css']
 })
 export class LeaveComponent implements OnInit {
+  cat!:string;
   public leaves: any = [];
   public ballance: any = [];
   public empInfoId: string = "";
   public fullName: string = "";
   public role!: string;
+  tokenID!:any;
   constructor(@Inject(DOCUMENT) private document: Document, private elementRef: ElementRef, public _router: Router, private userStore: UserStoreService, private auth: AuthService,private api:ApiService) { }
 
 
   ngOnInit(): void {
-    this.getUserName();
-    this.getRole();
+    const token=localStorage.getItem('token');
+    const jwtHelper = new JwtHelperService();
+    console.log("token-->",jwtHelper.decodeToken(token!).nameid)
+    this.tokenID = jwtHelper.decodeToken(token!).nameid;
+    this.api.getUserDetails(token)
+    .subscribe(res => {
+      
+      this.role=res[0].role;
+      this.fullName=res[0].username;  
+      this.cat = res[0].category;
+      console.log(res);
+    });
     this.getEmpinfoId();
     this.getLeaves();
     this.getLeavesRemaining();
@@ -56,22 +69,7 @@ export class LeaveComponent implements OnInit {
         this.empInfoId = val || IdFromToken;
       });
   }
-  //get username
-  getUserName(){
-    this.userStore.getFullNameFromStore()
-    .subscribe(val => {
-      const fullNameFromToken = this.auth.getfullNameFromToken();
-      this.fullName = val || fullNameFromToken
-    });
-  }
-  //get role
-  getRole() {
-    this.userStore.getRoleFromStore()
-      .subscribe(val => {
-        const roleFromToken = this.auth.getRoleFromToken();
-        this.role = val || roleFromToken;
-      })
-  }
+  
   sidebarToggle() {
     //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');

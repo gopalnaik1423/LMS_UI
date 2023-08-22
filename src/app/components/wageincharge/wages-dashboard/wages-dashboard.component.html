@@ -3,15 +3,16 @@
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item"> <a class="nav-link " (click)="Dash()"> <i class="bi bi-grid"></i>
                 <span>Dashboard</span> </a></li>
-        <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
-                    class="bi bi-calendar-event"></i> <span>Report</span> </a></li>
+        <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-report"> <i
+                    class="bi bi-calendar-event"></i> <span>Report</span> </a></li> -->
         <!-- <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-holiday"> <i class="bi bi-diagram-3"></i>
                 <span>Holidays</span> </a></li> -->
         <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
                 <span>Policy</span> </a></li>
         <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-control"> <i
-                    class="bi bi-bar-chart-steps"></i>
+                    class="bi bi-file-earmark-arrow-up-fill"></i>
                 <span>Excel Upload</span> </a></li>
+
     </ul>
 </aside>
 <main id="main" class="main">
@@ -111,11 +112,11 @@
                                 </select>
                             </div>
                             <div class="col-md-6"> <label for="date" class="form-label">From Date</label>
-                                <input type="date" class="form-control" [min]="maxDate" formControlName="fromDate"
-                                    placeholder="no">
+                                <input type="date" class="form-control"  (change)="changeFn($event)" [min]="minDate" [max]="maxDate" formControlName="fromDate" name="fromDate" id="date1" placeholder="no"
+                                    >
                             </div>
-                            <div class="col-md-6"> <label for="date" class="form-label">To Date</label>
-                                <input type="date" class="form-control" [min]="maxDate" formControlName="todate"
+                            <div class="col-md-6"> <label for="date"  class="form-label">To Date</label>
+                                <input type="date" class="form-control" [min]="foo" [max]="maxDate" formControlName="todate" name="fromDate" id="date2"
                                     placeholder="To Date">
                             </div>
                             <div class="col-md-6"> <label for="Sessions" class="form-label">From Session</label>
@@ -153,7 +154,7 @@
 
                             <div class="col-12">
                                 <textarea name="comment" id="comment" formControlName="description"
-                                    placeholder="Enter Reason" cols="10" class="form-control" rows="3"></textarea>
+                                    placeholder="Enter Reason" cols="10" maxlength="2000" class="form-control" rows="3"></textarea>
                             </div>
                             <div class="col-12">
                                 <label class="d-inline-block text-primary m-auto"><input type="file"
@@ -185,7 +186,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a id="admin" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                        <a id="admin" style="cursor: pointer; text-decoration: none;" data-bs-toggle="modal" data-bs-target="#exampleModal1"
                             class="float-end">See All Holidays</a>
                     </div>
                 </div>

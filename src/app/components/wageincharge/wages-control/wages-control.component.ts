@@ -38,7 +38,6 @@ export class WagesControlComponent implements OnInit {
     this.tokenID = jwtHelper.decodeToken(token!).nameid;
     this.api.getUserDetails(token)
       .subscribe(res => {
-
         this.role = res[0].role;
         this.fullName = res[0].username;
         this.cat = res[0].category;

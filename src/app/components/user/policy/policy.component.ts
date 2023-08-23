@@ -1,6 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
 
@@ -10,22 +12,23 @@ import { UserStoreService } from 'src/app/services/user-store.service';
   styleUrls: ['./policy.component.css']
 })
 export class PolicyComponent implements OnInit {
-
-
- public fullName: string = "";
+  cat!:string;
+  tokenID!:any;
+  public fullName: string = "";
   public role!: string;
-  constructor(@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService) { }
+  constructor(@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService,private api:ApiService) { }
   ngOnInit(): void {
-    this.userStore.getFullNameFromStore()
-      .subscribe(val => {
-        const fullNameFromToken = this.auth.getfullNameFromToken();
-        this.fullName = val || fullNameFromToken
-      });
-    this.userStore.getRoleFromStore()
-      .subscribe(val => {
-        const roleFromToken = this.auth.getRoleFromToken();
-        this.role = val || roleFromToken;
-      })
+    const token=localStorage.getItem('token');
+    const jwtHelper = new JwtHelperService();
+    console.log("token-->",jwtHelper.decodeToken(token!).nameid)
+    this.tokenID = jwtHelper.decodeToken(token!).nameid;
+    this.api.getUserDetails(token)
+    .subscribe(res => {
+      this.role=res[0].role;
+      this.fullName=res[0].username;  
+      this.cat = res[0].category;
+      console.log(res);
+    });
   }
   sidebarToggle() {
     //toggle sidebar function

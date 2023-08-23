@@ -9,14 +9,13 @@
                 <span>Holidays</span> </a></li> -->
         <li class="nav-item"> <a class="nav-link collapsed" routerLink="/wages-policy"> <i class="bi bi-diagram-3"></i>
                 <span>Policy</span> </a></li>
-        <li class="nav-item"> <a class="nav-link" routerLink="/wages-control"> <i
-                    class="bi bi-bar-chart-steps"></i>
-                <span>controls</span> </a></li>
+        <li class="nav-item"> <a class="nav-link" routerLink="/wages-control"> <i class="bi bi-file-earmark-arrow-up-fill"></i>
+            <span>Excel Upload</span> </a></li>
     </ul>
 </aside>
 <main id="main" class="main">
     <div class="pagetitle">
-       <h1>Welcome {{fullName}}<span style="font-size: small;">({{role}})-[{{cat}}]</span></h1>
+        <h1>Welcome {{fullName}}<span style="font-size: small;"> ({{role}}) - ({{cat}})</span></h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a routerLink="/wages-dashboard">Dashboard</a></li>
@@ -28,51 +27,51 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <a style="float: right; text-decoration:none;" class="btn-sm btn-secondary" href="assets/sampleExcel/sample.xlsx" download>
-                        Reference Excel
+                    <a style="float: right; text-decoration:none;background-color: #003566; color: aliceblue;" class="btn-sm" href="assets/sampleExcel/User.xlsx" download>
+                        Sample Excel
                     </a>
                   <form [formGroup]="uploadFile1" (ngSubmit)="uploadingFile1()">
                     <div class="row">
 
-                        <div class="col-md-12"> <label class="form-label" for="file1" >Users ExcelFile Upload</label>
+                        <div class="col-md-10"> <label class="form-label" for="file1" >Users Excel File Upload</label>
                             <input id="file1" type="file" class="form-control" (change)="onFileChange1($event)" accept=".xlsx" formControlName="file1" [ngClass]="{ 'is-invalid': submitted && f1.file1.errors }"/>
                         </div>
                         <div class="col-md-4 float-right mt-4">
-                            <button class="btn btn-primary form-control" [disabled]="uploadFile1.invalid" type="submit">Upload</button>
+                            <button class="btn form-control" style="background-color: #064987;color: aliceblue;" [disabled]="uploadFile1.invalid" type="submit">Upload</button>
                         </div>
                     </div>
                   </form>
                 </div> 
                 <hr>
                 <div class="card-body">
-                    <a style="float: right; text-decoration:none;" class="btn-sm btn-secondary" href="assets/sampleExcel/sample.xlsx" download>
-                        Reference Excel
+                    <a style="float: right; text-decoration:none;background-color: #003566; color: aliceblue;" class="btn-sm btn-info" href="assets/sampleExcel/EmpInfo.xlsx" download>
+                        Sample Excel
                     </a>
                     <form [formGroup]="uploadFile2" (ngSubmit)="uploadingFile2()">
                         <div class="row">
 
-                            <div class="col-md-12"> <label class="form-label" for="file2">Employee ExcelFile Upload</label>
+                            <div class="col-md-10"> <label class="form-label" for="file2">Employee Excel File Upload</label>
                                 <input id="file2" type="file" class="form-control" (change)="onFileChange2($event)" accept=".xlsx" formControlName="file2" [ngClass]="{ 'is-invalid': submitted && f2.file2.errors }"/>
                             </div>
                             <div class="col-md-4 mt-4">
-                                <button class="btn btn-primary form-control" [disabled]="uploadFile2.invalid" type="submit">Upload</button>
+                                <button class="btn form-control" style="background-color: #064987;color: aliceblue;" [disabled]="uploadFile2.invalid" type="submit">Upload</button>
                             </div>
                         </div>
                       </form>
                   </div> 
                   <hr>
                   <div class="card-body">
-                    <a style="float: right; text-decoration:none;" class="btn-sm btn-secondary" href="assets/sampleExcel/sample.xlsx" download>
-                        Reference Excel
+                    <a style="float: right; text-decoration:none;background-color: #003566; color: aliceblue;" class="btn-sm btn-info" href="assets/sampleExcel/LeaveData.xlsx" download>
+                        Sample Excel
                     </a>
                     <form [formGroup]="uploadFile3" (ngSubmit)="uploadingFile3()">
                         <div class="row">
 
-                            <div class="col-md-12"> <label class="form-label" for="file3">LeaveData ExcelFile Upload</label>
+                            <div class="col-md-10"> <label class="form-label" for="file3">LeaveData Excel File Upload</label>
                                 <input id="file3" type="file" class="form-control" (change)="onFileChange3($event)" accept=".xlsx" formControlName="file3" [ngClass]="{ 'is-invalid': submitted && f3.file3.errors }" />
                             </div>
                             <div class="col-md-4 mt-4">
-                                <button class="btn btn-primary form-control" [disabled]="uploadFile3.invalid" type="submit">Upload</button>
+                                <button class="btn form-control" style="background-color: #064987;color: aliceblue;" [disabled]="uploadFile3.invalid" type="submit">Upload</button>
                             </div>
                         </div>
                       </form>

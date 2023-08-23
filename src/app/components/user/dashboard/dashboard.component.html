@@ -36,7 +36,7 @@
                 <div class="card bg-info text-light" (click)="tabTwo()">
                     <div class="card-body">
                         <h5 class="card-title text-center text-light">Applied Leaves</h5>
-                        <p class="text-center" style="font-weight:bold;">{{apllied}}</p>
+                        <p class="text-center" style="font-weight:bold;"> {{apllied}}</p>
                     </div>
                 </div>
             </div>
@@ -112,7 +112,7 @@
 
                             <div class="col-12">
                                 <textarea name="comment" id="comment" formControlName="description" placeholder="Enter Reason" cols="10"
-                                    class="form-control" rows="3"></textarea>
+                                    class="form-control" rows="3" maxlength="2000"></textarea>
                             </div>
                             <div class="col-12">
                                 <label class="d-inline-block text-primary m-auto"><input type="file"
@@ -144,7 +144,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a id="admin" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="float-end">See All Holidays</a>
+                        <a id="admin" style="cursor: pointer;text-decoration: none;" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="float-end">See All Holidays</a>
                     </div>
                 </div>
                 <div class="card">

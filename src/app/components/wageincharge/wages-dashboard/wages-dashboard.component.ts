@@ -15,6 +15,7 @@ import { SnackBarService } from 'src/app/services/SnackBar.service';
   styleUrls: ['./wages-dashboard.component.css']
 })
 export class WagesDashboardComponent implements OnInit {
+  foo!:Date;
   public dptEmpId:any;
   showDropDown: boolean = false;
   selectRole!:string;
@@ -79,6 +80,12 @@ export class WagesDashboardComponent implements OnInit {
     // this.getLeaves();
     // this.getLeavesRemaining();
   }
+  changeFn(e:any) {
+    this.foo = e.target.value;
+  }
+  maxDate: string = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0]; 
+  minDate = new Date(new Date().getTime() + 86400000).toISOString().substring(0, 10);
+  
   Dash():void{
     this.showElement = true;
     this.shoWElmenttwo = false;
@@ -241,7 +248,6 @@ getLeaveApplied(id:any){
     }
   }
 
-  maxDate = new Date(new Date().getTime() + 86400000).toISOString().substring(0, 10);
    //get empid
    getEmpinfoId(){
     this.userStore.getIdFromStore()

@@ -15,6 +15,7 @@ import { SnackBarService } from 'src/app/services/SnackBar.service';
   styleUrls: ['./sup-dashboard.component.css']
 })
 export class SupDashboardComponent implements OnInit {
+  foo!:Date;
   public dptEmpId:any;
   showDropDown: boolean = false;
   total!:string;
@@ -254,8 +255,12 @@ getLeaveApplied(id:any){
   this.snk.SendSnackBarMsgDanger(errorMessage);
     }
   }
-
-  maxDate = new Date(new Date().getTime() + 86400000).toISOString().substring(0, 10);
+  changeFn(e:any) {
+    this.foo = e.target.value;
+  }
+  maxDate: string = new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0]; 
+  minDate = new Date(new Date().getTime() + 86400000).toISOString().substring(0, 10);
+  
   getLeaves(){
     this.api.getLeavesData(this.dptEmpId)
       .subscribe(res => {

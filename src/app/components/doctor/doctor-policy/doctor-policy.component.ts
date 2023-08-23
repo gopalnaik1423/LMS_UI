@@ -25,6 +25,7 @@ public fullName: string = "";
     this.cat = jwtHelper.decodeToken(token!).certpublickey;
     console.log("tokenValue-->",this.dptEmpId);
   }
+  
   sidebarToggle() {
     //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');

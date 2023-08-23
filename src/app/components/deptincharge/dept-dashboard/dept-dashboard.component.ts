@@ -1,7 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ProgressBarBehaviourSubject } from 'src/app/services/ProgressBarBehaviourSubject.service';
+import { SnackBarService } from 'src/app/services/SnackBar.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
@@ -17,6 +19,7 @@ export class DeptDashboardComponent implements OnInit {
   totalemp!:string;
   apllied!:string;
   approved!:string;
+  cat!:string;
   reject!:string;
   public empRejectedData: any = [];
   public empApprovedData: any = [];
@@ -35,11 +38,14 @@ export class DeptDashboardComponent implements OnInit {
   ApprovedTable = false;
   Appliedlev =false;
   reectedLev = false;
-  constructor(@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService,private api:ApiService,private pgbar:ProgressBarBehaviourSubject) { }
+  constructor(private  snk:SnackBarService,@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService,private api:ApiService,private pgbar:ProgressBarBehaviourSubject) { }
   ngOnInit(): void {
-    this.getUserName();
-    this.getRole();
-    this.getEmpinfoId();
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token');
+    this.empInfoId = jwtHelper.decodeToken(token!).nameid;
+    this.fullName = jwtHelper.decodeToken(token!).unique_name;
+    this.role = jwtHelper.decodeToken(token!).role;
+    this.cat = jwtHelper.decodeToken(token!).certpublickey;
     this.getDepartmentAllCount();
     this.getDeptEmployeeData();
     this.getHolidaysDatas();
@@ -114,31 +120,9 @@ tabFour(): void {
     //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');
   }
-  getUserName(){
-    this.userStore.getFullNameFromStore()
-    .subscribe(val => {
-      const fullNameFromToken = this.auth.getfullNameFromToken();
-      this.fullName = val || fullNameFromToken
-    });
-  }
-  //get role
-  getRole() {
-    this.userStore.getRoleFromStore()
-      .subscribe(val => {
-        const roleFromToken = this.auth.getRoleFromToken();
-        this.role = val || roleFromToken;
-      })
-  }
-  getEmpinfoId(){
-    this.userStore.getIdFromStore()
-      .subscribe(val => {
-        const IdFromToken = this.auth.getIdFromToken();
-        this.empInfoId = val || IdFromToken;
-      });
-  }
   getDepartmentAllCount(){
     const id = this.empInfoId;
-    this.api.GetdeptinchargeEmpCounts(id)
+    this.api.GetdeptinchargeEmpCounts(this.empInfoId)
       .subscribe(res => {
         this.totalemp=res[0];
         this.apllied=res[1];
@@ -147,34 +131,28 @@ tabFour(): void {
       });
   }
   getDeptEmployeeData(){
-    const id = this.empInfoId;
-    this.api.GetDeptEmpDetails(id)
+    this.api.GetDeptEmpDetails(this.empInfoId)
       .subscribe(res => {
         this.empAllData = res;
-        // console.log(this.empAllData);
       });
   }
-  //get Holiday Detailes
   getHolidaysDatas(){
     this.api.getHolidaysData()
     .subscribe(res => {
       this.holiday = res;
-      // console.log(this.holiday);
     });
   }
   getAllHolidaysDatas(){
     this.api.getAllHolidaysData()
     .subscribe(res => {
       this.allHoliday = res;
-      // console.log(this.holiday);
     });
   }
   getDeptPendingleaveRequestsData(){
     const id = this.empInfoId;
-    this.api.GetdeptinchargePendingleaveRequests(id)
+    this.api.GetdeptinchargePendingleaveRequests(this.empInfoId)
       .subscribe(res => {
         this.empPandingData = res;
-        // console.log(this.empPandingData);
       });
   }
   onGetApproveEmployee(event:Event){
@@ -184,13 +162,13 @@ tabFour(): void {
     this.api.PostApproveId(selectedid)
     .subscribe({
       next:(res=>{
-        // console.log(res.error);
+        this.snk.SendSnackBarMsgSuccess("!"+ res + "!");
         this.getDepartmentAllCount();
         this.getDeptPendingleaveRequestsData();
         this.pgbar.hide();
       }),
       error:(err=>{
-        alert(err.error.text)
+        this.snk.SendSnackBarMsgSuccess(err);
         this.getDepartmentAllCount();
         this.getDeptPendingleaveRequestsData();
         this.pgbar.hide();
@@ -198,19 +176,20 @@ tabFour(): void {
     });
   }
   onGetRejectEmployee(event:Event){
+    debugger
     this.pgbar.visible();
     const selectedid = event;
     // alert(selectedid);
     this.api.PostRejectId(selectedid)
     .subscribe({
       next:(res=>{
-        // console.log(res.error.text);
+        this.snk.SendSnackBarMsgSuccess("!"+ res + " !");
         this.getDepartmentAllCount();
         this.getDeptPendingleaveRequestsData();
         this.pgbar.hide();
       }),
       error:(err=>{
-        alert(err.error.text)
+        this.snk.SendSnackBarMsgSuccess(err);
         this.getDepartmentAllCount();
         this.getDeptPendingleaveRequestsData();
         this.pgbar.hide();
@@ -222,7 +201,6 @@ tabFour(): void {
     this.api.GetdeptinchargeApprovedleaveRequests(id)
       .subscribe(res => {
         this.empApprovedData = res;
-        // console.log(this.empApprovedData);
       });
   }
   getDeptRequestedleaveRequestsData(){
@@ -230,7 +208,6 @@ tabFour(): void {
     this.api.GetdeptinchargeRequestedleaveRequests(id)
       .subscribe(res => {
         this.empRejectedData = res;
-        // console.log(this.empRejectedData);
       });
   }
 }

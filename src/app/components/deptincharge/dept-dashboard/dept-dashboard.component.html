@@ -187,8 +187,8 @@
                                     <td>{{pendingData.leaveDays}}</td>
                                     <td>{{pendingData.leaveType}}</td>
                                     <td style="width: 200px;">{{pendingData.discription}}</td>
-                                    <td style="width: 180px;">
-                                        <span><button [value]="pendingData.empInfo" (click)="onGetApproveEmployee(pendingData.empInfo)" class="btn-sm btn-success rounded-3">Approved</button>|<button [value]="pendingData.empInfo" (click)="onGetRejectEmployee(pendingData.empInfo)" class="btn-sm btn-danger rounded-3" style="width: 80px;">Reject</button></span>
+                                    <td style="width: 200px;">
+                                        <span><button [value]="pendingData.empInfo" (click)="onGetApproveEmployee(pendingData.empInfo)" class="btn-sm btn-success">Approved</button><button [value]="pendingData.empInfo" (click)="onGetRejectEmployee(pendingData.empInfo)" class="btn-sm btn-danger ml-2" style="width: 80px;">Reject</button></span>
                                         <!-- <select class="form-select rounded-pill" onchange="changeColor(this)">
                                             <option value="green" selected>Approved</option>
                                             <option value="orange">Painding</option>

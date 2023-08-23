@@ -56,6 +56,7 @@ export class WagesDashboardComponent implements OnInit {
     this.role =  jwtHelper.decodeToken(token!).role;
     this.fullName =  jwtHelper.decodeToken(token!).unique_name;
     this.cat =   jwtHelper.decodeToken(token!).certpublickey;
+    this.dptEmpId = this.tokenID;
     console.log("Id",this.dptEmpId)
     this.getEmpinfoId();
     this.getHolidaysDatas();

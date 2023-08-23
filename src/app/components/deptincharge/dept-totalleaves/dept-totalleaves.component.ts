@@ -106,7 +106,7 @@ tabTwo(): void {
     this.api.GetDeptEmpDetails(id)
       .subscribe(res => {
         this.empAllData = res;
-        // console.log(this.empAllData);
+        console.log("test-->",this.empAllData);
       });
   }
   getEmployeeOnLeaveCount(){

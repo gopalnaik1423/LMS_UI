@@ -2,8 +2,10 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import ValidateForm from 'src/app/helpers/validationform';
 import { ProgressBarBehaviourSubject } from 'src/app/services/ProgressBarBehaviourSubject.service';
+import { SnackBarService } from 'src/app/services/SnackBar.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserStoreService } from 'src/app/services/user-store.service';
@@ -38,17 +40,23 @@ export class DeptAddleavesComponent implements OnInit {
   ApprovedTable = false;
   Appliedlev =false;
   reectedLev = false;
-  constructor(@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService,private fb:FormBuilder,private pgbar:ProgressBarBehaviourSubject,private api:ApiService) { }
+  cat!:string;
+  constructor(private snk:SnackBarService,@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService,private fb:FormBuilder,private pgbar:ProgressBarBehaviourSubject,private api:ApiService) { }
   ngOnInit(): void {
-    this.getUserName();
-    this.getRole();
-    this.getEmpinfoId();
+    const jwtHelper = new JwtHelperService();
+    const token = localStorage.getItem('token');
+    this.empInfoId = jwtHelper.decodeToken(token!).nameid;
+    this.fullName = jwtHelper.decodeToken(token!).unique_name;
+    this.role = jwtHelper.decodeToken(token!).role;
+    this.cat = jwtHelper.decodeToken(token!).certpublickey;
     this.getHolidaysDatas();
     this.getAllHolidaysDatas();
     this.getCountStatus();
     // this.getActivitesData();
     this.applyLeave = this.fb.group({
       empInfoId: this.empInfoId,
+      modifiedByID:0,
+      appliedType:['self'],
       leaveType: ['', Validators.required],
       fromDate: ['', Validators.required],
       todate: ['', Validators.required],
@@ -157,39 +165,41 @@ getLeaveApplied(){
       });
   }
   onApplyLeave() {
-    if (this.applyLeave.value) {
+    if (this.applyLeave.valid) {
       this.pgbar.visible();
-      console.log(this.applyLeave.value); 
-      debugger
       this.auth.applyLeaves(this.applyLeave.value)
       .subscribe({
         next:(res=>{
           this.applyLeave.reset();
-          console.log(res.error);
           this.pgbar.hide();
-          alert("Successfuly Applied Leaves")
+          this.snk.SendSnackBarMsgSuccess("! Leave Applied Successfully !");
         }),
         error:(err=>{
           this.pgbar.hide();
           this.applyLeave.reset();
-          alert(err.error)
+          this.snk.SendSnackBarMsgDanger(err);
         })
       })
     } else {
-      
-      ValidateForm.validateAllFormFields(this.applyLeave);
+      let invalidFields = [];
+  
+      // Loop through each form control to check for invalid ones
+      for (const controlName in this.applyLeave.controls) {
+        if (this.applyLeave.controls.hasOwnProperty(controlName)) {
+          const control = this.applyLeave.controls[controlName];
+          if (control.invalid) {
+            invalidFields.push(controlName);
+          }
+        }
+      }
+    
+      // Build a message indicating which fields are required
+      const errorMessage = `Please fill in the following fields: ${invalidFields.join(', ')}`;
+      this.snk.SendSnackBarMsgDanger(errorMessage);
     }
   }
 
   maxDate = new Date(new Date().getTime() + 86400000).toISOString().substring(0, 10);
-   //get empid
-   getEmpinfoId(){
-    this.userStore.getIdFromStore()
-      .subscribe(val => {
-        const IdFromToken = this.auth.getIdFromToken();
-        this.empInfoId = val || IdFromToken;
-      });
-  }
   getLeaves(){
     const id = this.empInfoId;
     this.api.getLeavesData(id)
@@ -209,24 +219,6 @@ getLeaveApplied(){
           this.apllied=res[3];
         });
     }
-  //get username
-  getUserName(){
-    this.userStore.getFullNameFromStore()
-    .subscribe(val => {
-      const fullNameFromToken = this.auth.getfullNameFromToken();
-      this.fullName = val || fullNameFromToken
-    });
-  }
-  //get role
-  getRole() {
-    this.userStore.getRoleFromStore()
-      .subscribe(val => {
-        const roleFromToken = this.auth.getRoleFromToken();
-        this.role = val || roleFromToken;
-      })
-  }
-
-  //get Holiday Detailes
   getHolidaysDatas(){
     this.api.getHolidaysData()
     .subscribe(res => {
@@ -241,17 +233,7 @@ getLeaveApplied(){
       // console.log(this.holiday);
     });
   }
-    // //get leave data
-    // getActivitesData(){
-    //   const id = this.empInfoId;
-    //   this.api.getActivites(id)
-    //     .subscribe(res => {
-    //       this.activites = res;
-    //       // console.log(this.activites);
-    //     });
-    // }
   sidebarToggle() {
-    //toggle sidebar function
     this.document.body.classList.toggle('toggle-sidebar');
   }
 

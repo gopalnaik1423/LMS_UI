@@ -100,7 +100,7 @@
                                 </select>
                             </div>
                             <div class="col-md-6"> <label for="date" class="form-label">From Date</label>
-                                <input type="date" class="form-control"  (change)="changeFn($event)" [min]="minDate" [max]="maxDate" formControlName="fromDate" name="fromDate" id="date1" placeholder="no">
+                                <input type="date" class="form-control"  (change)="changeFn($event)" [min]="minDate" [max]="maxDate" formControlName="fromDate" name="fromDate" id="date1" placeholder="no" appDisableWeekends>
                             </div>
                             <div class="col-md-6"> <label for="date"  class="form-label">To Date</label>
                                 <input type="date" class="form-control" [min]="foo" [max]="maxDate" formControlName="todate" name="fromDate" id="date2"

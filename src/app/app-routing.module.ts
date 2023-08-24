@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/user/dashboard/dashboard.component';
 import { LeaveComponent } from './components/user/leave/leave.component';
 import { PolicyComponent } from './components/user/policy/policy.component';
@@ -53,24 +53,18 @@ const routes: Routes = [
   { path: 'dept-policy', component: DeptPolicyComponent, canActivate: [AuthGuard] },
   { path: 'dept-addleaves', component: DeptAddleavesComponent, canActivate: [AuthGuard] },
   { path: 'dept-totalemployees', component: DeptTotalleavesComponent, canActivate: [AuthGuard] },
-  // { path: 'dept-noofpresent', component: DeptNoofpresentComponent, canActivate: [AuthGuard] },
   //login page
+  // { path: 'login',
+  // loadChildren: () => import('./components/pages/auth.module').then(k=>k.AuthModule)
+  // },
   { path: 'login', component: LoginComponent },
-  //profile page
   { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard] },
-  //reset password component
   { path: 'reset', component: ResetpasswordComponent },
   { path: '**', redirectTo:'login',pathMatch:'full' },
-  //contact page
-  // { path: 'contact', component: ContactComponent },
-  
-
-
-
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{preloadingStrategy:PreloadAllModules,useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

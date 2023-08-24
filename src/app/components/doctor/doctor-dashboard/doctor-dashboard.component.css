@@ -1,0 +1,4 @@
+.disabled-day {
+    color: #aaa; /* Or any other styling to indicate disabled state */
+    pointer-events: none;
+  }

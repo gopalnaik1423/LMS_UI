@@ -15,6 +15,7 @@ import { SnackBarService } from 'src/app/services/SnackBar.service'
   styleUrls: ['./doctor-dashboard.component.css']
 })
 export class DoctorDashboardComponent implements OnInit {
+  
   foo!:Date;
   public dptEmpId:any;
   showDropDown: boolean = false;
@@ -76,6 +77,10 @@ export class DoctorDashboardComponent implements OnInit {
     });
     // this.getLeaves();
     // this.getLeavesRemaining();
+  }
+  isWeekend(date: string): boolean {
+    const dayOfWeek = new Date(date).getDay();
+    return dayOfWeek === 0 || dayOfWeek === 6; // 0 for Sunday, 6 for Saturday
   }
   Dash():void{
     this.showElement = true;

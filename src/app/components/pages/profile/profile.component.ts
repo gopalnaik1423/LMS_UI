@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmPasswordValidator } from 'src/app/helpers/confirm-password.validator';
 import ValidateForm from 'src/app/helpers/validationform';
 import { PasswordReset } from 'src/app/models/password-reset.model';
+import { ProgressBarBehaviourSubject } from 'src/app/services/ProgressBarBehaviourSubject.service';
+import { SnackBarService } from 'src/app/services/SnackBar.service';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PasswordResetService } from 'src/app/services/password-reset.service';
@@ -37,7 +39,7 @@ export class ProfileComponent implements OnInit {
   fieldTextType1: boolean | any;
   fieldTextType2: boolean | any;
 
-  constructor(@Inject(DOCUMENT) private document: Document, private elementRef: ElementRef, public _router: Router, private api: ApiService, private auth: AuthService, private userStore: UserStoreService, private fb: FormBuilder, private activedRoute: ActivatedRoute, private resetService: PasswordResetService) { 
+  constructor(@Inject(DOCUMENT) private document: Document, private elementRef: ElementRef, public _router: Router, private api: ApiService, private auth: AuthService, private userStore: UserStoreService, private fb: FormBuilder, private activedRoute: ActivatedRoute, private resetService: PasswordResetService,private pgbar:ProgressBarBehaviourSubject,private snk:SnackBarService) { 
     
   }
 
@@ -85,22 +87,28 @@ export class ProfileComponent implements OnInit {
   resetpassword() {
     if (this.passwordResetForm.valid) {
       console.log(this.passwordResetForm)
+      this.pgbar.visible();
       this.passwordResetObj.email = this.email;
       this.passwordResetObj.newPassword = this.passwordResetForm.value.password;
       this.passwordResetObj.confirmPassword = this.passwordResetForm.value.confirmPassword;
       debugger
       this.resetService.newpasswordReset(this.passwordResetObj)
-        .subscribe({
-          next: (res) => {
-            this.passwordResetForm.reset();
-            alert("Successfully Password Reset!");
-          },
-          error: (err) => {
-            alert(err.error);
-          }
+      .subscribe({
+        next:(res=>{
+          this.passwordResetForm.reset();
+          this.pgbar.hide();
+          this.snk.SendSnackBarMsgSuccess("Successfully Password Reset!");
+        }),
+        error:(err=>{
+          this.passwordResetForm.reset();
+          this.pgbar.hide();
+          this.snk.SendSnackBarMsgDanger(err.message);
         })
+      })
     } else {
       ValidateForm.validateAllFormFields(this.passwordResetForm);
+      const errorMessage = `Please fill in the following fields`;
+      this.snk.SendSnackBarMsgDanger(errorMessage);
     }
   }
 

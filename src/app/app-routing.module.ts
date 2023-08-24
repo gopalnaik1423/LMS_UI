@@ -20,7 +20,6 @@ import { DeptTotalleavesComponent } from './components/deptincharge/dept-totalle
 import { LoginComponent } from "./components/pages/login/login.component";
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
-import { ResetpasswordComponent } from './components/pages/resetpassword/resetpassword.component';
 import { WagesAddpersonsComponent } from './components/wageincharge/wages-addpersons/wages-addpersons.component';
 import { WagesControlComponent } from './components/wageincharge/wages-control/wages-control.component';
 
@@ -59,7 +58,10 @@ const routes: Routes = [
   // },
   { path: 'login', component: LoginComponent },
   { path: 'profile', component: ProfileComponent, canActivate:[AuthGuard] },
+<<<<<<< HEAD
   { path: 'reset', component: ResetpasswordComponent },
+=======
+>>>>>>> ddbfadb (Dept-changes & many Changes)
   { path: '**', redirectTo:'login',pathMatch:'full' },
 ];
 

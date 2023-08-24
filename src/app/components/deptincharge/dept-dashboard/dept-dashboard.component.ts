@@ -1,7 +1,9 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import ValidateForm from 'src/app/helpers/validationform';
 import { ProgressBarBehaviourSubject } from 'src/app/services/ProgressBarBehaviourSubject.service';
 import { SnackBarService } from 'src/app/services/SnackBar.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -13,21 +15,22 @@ import { UserStoreService } from 'src/app/services/user-store.service';
   styleUrls: ['./dept-dashboard.component.css']
 })
 export class DeptDashboardComponent implements OnInit {
+  //////////////////////
+  total!:string;
+  apllied!:string;
+  approved!:string;
+  reject!:string;
   public holiday:any =[];
   public allHoliday:any =[];
   public activites:any =[];
-  totalemp!:string;
-  apllied!:string;
-  approved!:string;
-  cat!:string;
-  reject!:string;
-  public empRejectedData: any = [];
-  public empApprovedData: any = [];
-  public empPandingData: any = [];
-  public empAllData: any = [];
-  public empInfoId: string = "";
+  public leaves: any = [];
+  public appliedleaves: any = [];
+  public ballance: any = [];
+  public rejectleaves: any = [];
+  public applyLeave!: FormGroup;
   public fullName: string = "";
   public role!: string;
+  public empInfoId: string = "";
   public tab1!: boolean;
   public tab2!: boolean;
   public tab3!: boolean;
@@ -38,7 +41,8 @@ export class DeptDashboardComponent implements OnInit {
   ApprovedTable = false;
   Appliedlev =false;
   reectedLev = false;
-  constructor(private  snk:SnackBarService,@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService,private api:ApiService,private pgbar:ProgressBarBehaviourSubject) { }
+  cat!:string;
+  constructor(private snk:SnackBarService,@Inject(DOCUMENT) private document: Document,private elementRef: ElementRef, public _router: Router,private userStore:UserStoreService, private auth:AuthService,private fb:FormBuilder,private pgbar:ProgressBarBehaviourSubject,private api:ApiService) { }
   ngOnInit(): void {
     const jwtHelper = new JwtHelperService();
     const token = localStorage.getItem('token');
@@ -46,14 +50,24 @@ export class DeptDashboardComponent implements OnInit {
     this.fullName = jwtHelper.decodeToken(token!).unique_name;
     this.role = jwtHelper.decodeToken(token!).role;
     this.cat = jwtHelper.decodeToken(token!).certpublickey;
-    this.getDepartmentAllCount();
-    this.getDeptEmployeeData();
     this.getHolidaysDatas();
     this.getAllHolidaysDatas();
-    var s = document.createElement("script");
-    s.type = "text/javascript";
-    s.src = "../assets/js/main.js";
-    this.elementRef.nativeElement.appendChild(s);
+    this.getCountStatus();
+    // this.getActivitesData();
+    this.applyLeave = this.fb.group({
+      empInfoId: this.empInfoId,
+      modifiedByID:0,
+      appliedType:['self'],
+      leaveType: ['', Validators.required],
+      fromDate: ['', Validators.required],
+      todate: ['', Validators.required],
+      fromSession: ['', Validators.required],
+      toSession: ['', Validators.required],
+      description: ['', Validators.required],
+      applyTo: [''],
+    });
+    // this.getLeaves();
+    // this.getLeavesRemaining();
   }
   Dash():void{
     this.showElement = true;
@@ -63,18 +77,20 @@ export class DeptDashboardComponent implements OnInit {
     this.reectedLev = false;
     this._router.navigate(['/dept-addleaves']);
   }
-//   tabone(): void {
-//     this.showElement = false;
-//     this.shoWElmenttwo = true;
-//     this.ApprovedTable =false;
-//     this.Appliedlev = false;
-//     this.reectedLev = false;
-//     this.tab1 = true;
-//     this.tab2 = false;
-//     this.tab3 = false;
-//     this.tab4 = false;
-//    // this.tabCount = 1;
-// }
+  tabone(): void {
+    this.showElement = false;
+    this.shoWElmenttwo = true;
+    this.ApprovedTable =false;
+    this.Appliedlev = false;
+    this.reectedLev = false;
+    this.tab1 = true;
+    this.tab2 = false;
+    this.tab3 = false;
+    this.tab4 = false;
+    this.getLeaves();
+    this.getLeavesRemaining();
+   // this.tabCount = 1;
+}
 tabTwo(): void {
   this.showElement = false;
   this.shoWElmenttwo = false;
@@ -85,7 +101,7 @@ tabTwo(): void {
   this.tab2 = false;
   this.tab3 = false;
   this.tab4 = false;
-  this.getDeptPendingleaveRequestsData();
+  this.getLeaveApplied();
  // this.tabCount = 1;
 }
 tabTthree(): void {
@@ -99,7 +115,7 @@ tabTthree(): void {
   this.tab3 = false;
   this.tab4 = false;
   //this.getLeaves();
-  this.getDeptApprovedleaveRequestsData();
+  this.getApproveLeaves();
  // this.tabCount = 1;
 }
 tabFour(): void {
@@ -113,101 +129,112 @@ tabFour(): void {
   this.tab3 = false;
   this.tab4 = false;
   //this.getLeaves();
-  this.getDeptRequestedleaveRequestsData();
+  this.getLeavesRejected();
  // this.tabCount = 1;
 }
-  sidebarToggle(){
-    //toggle sidebar function
-    this.document.body.classList.toggle('toggle-sidebar');
-  }
-  getDepartmentAllCount(){
+getApproveLeaves(){
+  const id = this.empInfoId;
+  this.api.getApprovedleaves(id)
+    .subscribe(res => {
+      this.approveleaves = res;
+      // console.log(this.approveleaves);
+    });
+}
+getLeavesRejected(){
+  const id = this.empInfoId;
+  this.api.getRejectedleaves(id)
+    .subscribe(res => {
+      this.rejectleaves = res;
+      // console.log(this.rejectleaves);
+    });
+}
+//applaied leave
+getLeaveApplied(){
+  const id = this.empInfoId;
+  this.api.getLeaveStatus(id)
+    .subscribe(res => {
+      this.appliedleaves = res;
+      // console.log("appiled",this.appliedleaves);
+    });
+}
+  getLeavesRemaining(){
     const id = this.empInfoId;
-    this.api.GetdeptinchargeEmpCounts(this.empInfoId)
+    this.api.getLeaveBalance(id)
       .subscribe(res => {
-        this.totalemp=res[0];
-        this.apllied=res[1];
-        this.approved=res[2];
-        this.reject=res[3];
+        this.ballance = res[0];
+        // console.log(this.ballance);
       });
   }
-  getDeptEmployeeData(){
-    this.api.GetDeptEmpDetails(this.empInfoId)
+  onApplyLeave() {
+    if (this.applyLeave.valid) {
+      this.pgbar.visible();
+      this.auth.applyLeaves(this.applyLeave.value)
+      .subscribe({
+        next:(res=>{
+          this.applyLeave.reset();
+          this.pgbar.hide();
+          this.snk.SendSnackBarMsgSuccess("! Leave Applied Successfully !");
+        }),
+        error:(err=>{
+          this.pgbar.hide();
+          this.applyLeave.reset();
+          this.snk.SendSnackBarMsgDanger(err);
+        })
+      })
+    } else {
+      let invalidFields = [];
+  
+      // Loop through each form control to check for invalid ones
+      for (const controlName in this.applyLeave.controls) {
+        if (this.applyLeave.controls.hasOwnProperty(controlName)) {
+          const control = this.applyLeave.controls[controlName];
+          if (control.invalid) {
+            invalidFields.push(controlName);
+          }
+        }
+      }
+    
+      // Build a message indicating which fields are required
+      const errorMessage = `Please fill in the following fields: ${invalidFields.join(', ')}`;
+      this.snk.SendSnackBarMsgDanger(errorMessage);
+    }
+  }
+
+  maxDate = new Date(new Date().getTime() + 86400000).toISOString().substring(0, 10);
+  getLeaves(){
+    const id = this.empInfoId;
+    this.api.getLeavesData(id)
       .subscribe(res => {
-        this.empAllData = res;
+        this.leaves = res[0];
+        console.log(this.leaves);
       });
   }
+    //get leave status
+    getCountStatus(){
+      const id = this.empInfoId;
+      this.api.getLeaveCounts(id)
+        .subscribe(res => {
+          this.total=res[0];
+          this.approved=res[1];
+          this.reject=res[2];
+          this.apllied=res[3];
+        });
+    }
   getHolidaysDatas(){
     this.api.getHolidaysData()
     .subscribe(res => {
       this.holiday = res;
+      // console.log(this.holiday);
     });
   }
   getAllHolidaysDatas(){
     this.api.getAllHolidaysData()
     .subscribe(res => {
       this.allHoliday = res;
+      // console.log(this.holiday);
     });
   }
-  getDeptPendingleaveRequestsData(){
-    const id = this.empInfoId;
-    this.api.GetdeptinchargePendingleaveRequests(this.empInfoId)
-      .subscribe(res => {
-        this.empPandingData = res;
-      });
-  }
-  onGetApproveEmployee(event:Event){
-    this.pgbar.visible();
-    const selectedid = event;
-    // alert(selectedid);
-    this.api.PostApproveId(selectedid)
-    .subscribe({
-      next:(res=>{
-        this.snk.SendSnackBarMsgSuccess("!"+ res + "!");
-        this.getDepartmentAllCount();
-        this.getDeptPendingleaveRequestsData();
-        this.pgbar.hide();
-      }),
-      error:(err=>{
-        this.snk.SendSnackBarMsgSuccess(err);
-        this.getDepartmentAllCount();
-        this.getDeptPendingleaveRequestsData();
-        this.pgbar.hide();
-      })
-    });
-  }
-  onGetRejectEmployee(event:Event){
-    debugger
-    this.pgbar.visible();
-    const selectedid = event;
-    // alert(selectedid);
-    this.api.PostRejectId(selectedid)
-    .subscribe({
-      next:(res=>{
-        this.snk.SendSnackBarMsgSuccess("!"+ res + " !");
-        this.getDepartmentAllCount();
-        this.getDeptPendingleaveRequestsData();
-        this.pgbar.hide();
-      }),
-      error:(err=>{
-        this.snk.SendSnackBarMsgSuccess(err);
-        this.getDepartmentAllCount();
-        this.getDeptPendingleaveRequestsData();
-        this.pgbar.hide();
-      })
-    });
-  }
-  getDeptApprovedleaveRequestsData(){
-    const id = this.empInfoId;
-    this.api.GetdeptinchargeApprovedleaveRequests(id)
-      .subscribe(res => {
-        this.empApprovedData = res;
-      });
-  }
-  getDeptRequestedleaveRequestsData(){
-    const id = this.empInfoId;
-    this.api.GetdeptinchargeRequestedleaveRequests(id)
-      .subscribe(res => {
-        this.empRejectedData = res;
-      });
+  sidebarToggle() {
+    this.document.body.classList.toggle('toggle-sidebar');
   }
 }

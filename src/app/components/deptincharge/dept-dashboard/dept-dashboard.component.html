@@ -5,7 +5,7 @@
         <li class="nav-item"> <a class="nav-link"  (click)="Dash()" > <i class="bi bi-grid"></i>
                 <span>Dashboard</span> </a></li>
         <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-addleaves"> <i
-                    class="bi bi-calendar-event"></i> <span>Leave</span> </a></li>
+                    class="bi bi-calendar-event"></i> <span>Manage Employee Leave</span> </a></li>
         <li class="nav-item"> <a class="nav-link collapsed" routerLink="/dept-report"> <i
                     class="bi bi-file-earmark-bar-graph"></i>
                 <span>Report</span> </a></li>
@@ -24,7 +24,7 @@
         <h1>Welcome {{fullName}} <span style="font-size: small;">({{role}})</span></h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Dashboard</li>
+            <li class="breadcrumb-item active">Dashboard</li>
             </ol>
         </nav>
     </div>
@@ -32,17 +32,17 @@
     <section class="section dashboard">
         <div class="row">
             <div class="col-sm-3">
-                <div class="card bg-primary text-light" routerLink="/dept-totalemployees">
+                <div class="card bg-primary text-light" (click)="tabone()">
                     <div class="card-body ">
-                        <h5 class="card-title text-center text-light">Total Employees</h5>
-                        <p class="text-center" style="font-weight:bold;">{{totalemp}}</p>
+                        <h5 class="card-title text-center text-light">Total Leaves</h5>
+                        <p class="text-center" style="font-weight:bold;">{{total}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="card bg-info text-light" (click)="tabTwo()">
                     <div class="card-body">
-                        <h5 class="card-title text-center text-light">Manage Leaves</h5>
+                        <h5 class="card-title text-center text-light">Applied Leaves</h5>
                         <p class="text-center" style="font-weight:bold;">{{apllied}}</p>
                     </div>
                 </div>
@@ -68,42 +68,72 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Leave Applied Employees</h5>
-                        <table class="table table-hover">
-                            <tbody>
-                                <tr>
-                                    <td><i class="bi bi-cone-striped" style="font-size: 20px;"></i></td>
-                                    <td>Today,s Reka Birthday</td>
-                                    <td> <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
-                                            style="width: 30px; height: 30px;"></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="bi bi-envelope" style="font-size: 20px;"></i></td>
-                                    <td>Kiran Applied for Leave Today</td>
-                                    <td> <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
-                                            style="width: 30px; height: 30px;"></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="bi bi-shield-fill-plus" style="font-size: 20px;"></i></td>
-                                    <td>Arun is Off, Sick Leave</td>
-                                    <td> <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
-                                            style="width: 30px; height: 30px;"></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="bi bi-person-lines-fill" style="font-size: 20px;"></i>
-                                    </td>
-                                    <td>Tarun is Doing Work from Home</td>
-                                    <td> <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
-                                            style="width: 30px; height: 30px;"></td>
-                                </tr>
-                                <tr>
-                                    <td><i class="bi bi-shield-fill-plus" style="font-size: 20px;"></i></td>
-                                    <td>Arun is Off, Sick Leave</td>
-                                    <td> <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
-                                            style="width: 30px; height: 30px;"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <h5 class="card-title">Apply Leaves</h5>
+                        <form class="row g-3" [formGroup]="applyLeave" (ngSubmit)="onApplyLeave()">
+                            <div class="col-md-12">
+                                <label for="leaveType" class="form-label">Leave Type</label>
+                                <select name="LeaveType" id="leaveType" formControlName="leaveType" class="form-select">
+                                    <option value="0" selected disabled>Please Select</option>
+                                    <option value="Casual">Casual</option>
+                                    <option value="Sick">Sick</option>
+                                    <option value="Annual">Annual</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6"> <label for="date"  class="form-label">From Date</label>
+                                <input type="date" class="form-control" [min]="maxDate" formControlName="fromDate" name="fromDate" id="date1" placeholder="no">
+                            </div>
+                            <div class="col-md-6"> <label for="date"  class="form-label">To Date</label>
+                                <input type="date" class="form-control" [min]="maxDate" formControlName="todate" name="fromDate" id="date2"
+                                    placeholder="To Date">
+                            </div>
+                            <div class="col-md-6"> <label for="Sessions"  class="form-label">From Session</label>
+                                <select name="Sessions" id="sessions1" formControlName="fromSession" class="form-control">
+                                    <option value="0" selected disabled>Select Session</option>
+                                    <option value="session1">Session 1</option>
+                                    <option value="session2">Session 2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6"> <label for="Sessions" class="form-label">To Session</label>
+                                <select name="Sessions" id="sessions2"  formControlName="toSession" class="form-control">
+                                    <option value="0" selected disabled>Select Session</option>
+                                    <option value="session1">Session 1</option>
+                                    <option value="session2">Session 2</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
+                                    style="width: 20px; height: 20px;">
+                                &nbsp;Applying To
+                            </div>
+                            <!-- <div class="col-6">
+                                <a onclick="toggle()"> <i class="bi bi-plus-circle"
+                                        style="font-size: large; cursor: pointer;"></i></a> &nbsp; Add CC
+                            </div>
+                            <div class="col-12" id="emaildisplay" style="display: none;">
+                                <div class="d-flex">
+                                    <input type="email" class="form-control" formControlName="applyTo" placeholder="Enter Email Id">
+                                    <i class="bi bi-x-lg" onclick="toggle()" style="color: red; float: right; padding-left:10px;"></i>
+                                </div>
+                            </div> -->
+
+                            <div class="col-12"><label for="comment" class="form-label">Reason</label>
+                                <textarea name="comment" id="comment" formControlName="description" maxlength="2000" placeholder="Enter Reason" cols="10"
+                                    class="form-control" rows="3"></textarea>
+                            </div>
+                            <!-- <div class="col-12">
+                                <label class="d-inline-block text-primary m-auto"><input type="file"
+                                        class="custom-file-input" hidden id="customFile"><i class="bi bi-plus-square"
+                                        for="customFile" style="font-size: 20px; cursor: pointer;"></i> &nbsp; <a
+                                        style="cursor: default;">Attach
+                                        File</a></label>
+                            </div> -->
+                            <div class="col-6">
+                                <button class="btn form-control btn-outline-primary">Cancel</button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary form-control" type="submit">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -120,7 +150,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a id="admin" style="cursor: pointer;text-decoration: none;" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="float-end">See All Holidays</a>
+                        <a id="admin" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal1" class="float-end">See All Holidays</a>
                     </div>
                 </div>
                 <div class="card">
@@ -139,66 +169,67 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row mb-3">
-            <div class="col-lg-3 mb-2">
-                <input type="text" class="form-control bg-light" placeholder="Employee Name">
-            </div>
-            <div class="col-lg-3 mb-2">
-                <input type="text" class="form-control bg-light" placeholder="Employee ID ">
-            </div>
-            <div class="col-lg-3 mb-2">
-                <select class="form-control bg-light">
-                    <option value="1" selected>Department</option>
-                    <option value="2">TL</option>
-                    <option value="3">NTL</option>
-                    <option value="4">Self</option>
-                </select>
-            </div>
-            <div class="col-lg-3 mb-2">
-                <button class="btn btn-success form-control"> SEARCH </button>
-            </div>
-        </div> -->
-        <div class="row" *ngIf="Appliedlev">
+        <div class="row" *ngIf="shoWElmenttwo">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Employee Entries</h5>
+                        <h5 class="card-title">Total Leaves</h5>
                         <div class="table-responsive">
-                        <table class="table table-hover table-sm" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <!-- <th scope="col">Employee</th> -->
-                                    <th scope="col">Employee Id</th>
-                                    <th scope="col">Employee Name</th>
-                                    <th scope="col">From</th>
-                                    <th scope="col">To</th>
-                                    <th scope="col">No of Days</th>
-                                    <th scope="col">Leave Type</th>
-                                    <th scope="col">Reason</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let pendingData of empPandingData">
-                                    <td>{{pendingData.empInfo}}</td>
-                                    <td>{{pendingData.empName}}</td>
-                                    <td>{{pendingData.fromDate|date}}</td>
-                                    <td>{{pendingData.toDate|date}}</td>
-                                    <td>{{pendingData.leaveDays}}</td>
-                                    <td>{{pendingData.leaveType}}</td>
-                                    <td style="width: 200px;">{{pendingData.discription}}</td>
-                                    <td style="width: 200px;">
-                                        <span><button [value]="pendingData.empInfo" (click)="onGetApproveEmployee(pendingData.empInfo)" class="btn-sm btn-success">Approved</button><button [value]="pendingData.empInfo" (click)="onGetRejectEmployee(pendingData.empInfo)" class="btn-sm btn-danger ml-2" style="width: 80px;">Reject</button></span>
-                                        <!-- <select class="form-select rounded-pill" onchange="changeColor(this)">
-                                            <option value="green" selected>Approved</option>
-                                            <option value="orange">Painding</option>
-                                            <option value="red">Rejected</option>
-                                        </select> -->
-                                    </td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>
+                            <table class="table" style="width: 100%; height: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Type of Leaves</th>
+                                        <th scope="col">Total Leaves</th>
+                                        <th scope="col">Leaves Consumed</th>
+                                        <th scope="col">Leaves Remaing</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Anual Leave</td>
+                                        <td>{{leaves.annualLeaves}}</td>
+                                        <td>{{leaves.annualLeaves-ballance.annualLeaves}}</td>
+                                        <td>{{ballance.annualLeaves}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Sick Leave</td>
+                                        <td>{{leaves.sickLeave}}</td>
+                                        <td>{{leaves.sickLeave-ballance.sickLeave}}</td>
+                                        <td>{{ballance.sickLeave}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Casual Leave</td>
+                                        <td>{{leaves.casualLeave}}</td>
+                                        <td>{{leaves.casualLeave-ballance.casualLeave}}</td>
+                                        <td>{{ballance.casualLeave}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>Trade Union Leave</td>
+                                        <td>{{leaves.tradeUnionLeaves}}</td>
+                                        <td>{{leaves.tradeUnionLeaves-ballance.tradeUnionLeaves}}</td>
+                                        <td>{{ballance.tradeUnionLeaves}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>On Duty Leave</td>
+                                        <td>{{leaves.onDuty}}</td>
+                                        <td>{{leaves.onDuty-ballance.onDuty}}</td>
+                                        <td>{{ballance.onDuty}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">6</th>
+                                        <td>Quarantine Leave</td>
+                                        <td>{{leaves.quarantineLeave}}</td>
+                                        <td>{{leaves.quarantineLeave-ballance.quarantineLeave}}</td>
+                                        <td>{{ballance.quarantineLeave}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -208,38 +239,67 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Employee Entries</h5>
+                        <h5 class="card-title">Approved Leaves</h5>
                         <div class="table-responsive">
-                        <table class="table table-hover table-sm" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <!-- <th scope="col">Employee</th> -->
-                                    <th scope="col">Emp Id</th>
-                                    <th scope="col">Employee Name</th>
-                                    <th scope="col">From</th>
-                                    <th scope="col">To</th>
-                                    <th scope="col">No of Days</th>
-                                    <th scope="col">Leave Type</th>
-                                    <th scope="col">Reason</th>
-                                    <th scope="col">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let approve of empApprovedData">
-                                    <!-- <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
-                                            style="width: 20px; height: 20px;"></td> -->
-                                    <td>{{approve.empInfo}}</td>
-                                    <td>{{approve.empName}}</td>
-                                    <td>{{approve.fromDate|date}}</td>
-                                    <td>{{approve.toDate|date}}</td>
-                                    <td>{{approve.leaveDays}}</td>
-                                    <td>{{approve.leaveType}}</td>
-                                    <td style="width: 200px;">{{approve.discription}}</td>
-                                    <td><i class="bi bi-stop-fill text-success"></i>Approved</td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type of Leaves</th>
+                                        <th scope="col">From</th>
+                                        <th scope="col">To</th>
+                                        <th scope="col">No of Days</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Approved By</th>
+                                        <th scope="col">Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let approved of approveleaves;">
+                                        <td>{{approved.leaveType}}</td>
+                                        <td>{{approved.fromDate | date}}</td>
+                                        <td>{{approved.toDate | date}}</td>
+                                        <td>{{approved.leaveDays}}</td>
+                                        <td>{{approved.status}}</td>
+                                        <td>{{approved.applyTo}}</td>
+                                        <td>{{approved.description}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="Appliedlev">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Applied Leaves</h5>
+                        <div class="table-responsive">
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Type of Leaves</th>
+                                        <th scope="col">From</th>
+                                        <th scope="col">To</th>
+                                        <th scope="col">No of Days</th>
+                                        <th scope="col">Applied To By</th>
+                                        <th scope="col">Reason</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let applied of appliedleaves;">
+                                        <td>{{applied.leaveType}}</td>
+                                        <td>{{applied.fromDate | date}}</td>
+                                        <td>{{applied.toDate | date}}</td>
+                                        <td>{{applied.leaveDays}}</td>
+                                        <td>{{applied.applyTo}}</td>
+                                        <td>{{applied.description}}</td>
+                                        <td>{{applied.status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -249,36 +309,30 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Employee Entries</h5>
+                        <h5 class="card-title">Rejected Leaves</h5>
                         <div class="table-responsive">
-                            <table class="table table-hover table-sm" cellspacing="0" width="100%">
+                            <table class="table">
                                 <thead>
                                     <tr>
-                                        <!-- <th scope="col">Employee</th> -->
-                                        <th scope="col">Emp Id</th>
-                                        <th scope="col">Employee Name</th>
+                                        <th scope="col">Type of Leaves</th>
                                         <th scope="col">From</th>
                                         <th scope="col">To</th>
                                         <th scope="col">No of Days</th>
-                                        <th scope="col">Leave Type</th>
-                                        <th scope="col">Reason</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Rejected By</th>
+                                        <th scope="col">Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let rejectD of empRejectedData">
-                                        <!-- <td><img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"
-                                                style="width: 20px; height: 20px;"></td> -->
-                                        <td>{{rejectD.empInfo}}</td>
-                                        <td>{{rejectD.empName}}</td>
-                                        <td>{{rejectD.fromDate|date}}</td>
-                                        <td>{{rejectD.toDate|date}}</td>
-                                        <td>{{rejectD.leaveDays}}</td>
-                                        <td>{{rejectD.leaveType}}</td>
-                                        <td style="width: 200px;">{{rejectD.discription}}</td>
-                                        <td><i class="bi bi-stop-fill text-danger"></i>Rejected</td>
+                                    <tr *ngFor="let reject of rejectleaves;">
+                                        <td>{{reject.leaveType}}</td>
+                                        <td>{{reject.fromDate | date}}</td>
+                                        <td>{{reject.toDate | date}}</td>
+                                        <td>{{reject.leaveDays}}</td>
+                                        <td>{{reject.status}}</td>
+                                        <td>{{reject.applyTo}}</td>
+                                        <td>{{reject.description}}</td>
                                     </tr>
-                                   
                                 </tbody>
                             </table>
                         </div>

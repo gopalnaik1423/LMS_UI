@@ -29,7 +29,6 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { ResetpasswordComponent } from './components/pages/resetpassword/resetpassword.component';
 import { WagesAddpersonsComponent } from './components/wageincharge/wages-addpersons/wages-addpersons.component';
 import {DataTablesModule} from 'angular-datatables';
 import { WagesControlComponent } from './components/wageincharge/wages-control/wages-control.component';
@@ -59,7 +58,6 @@ import { WagesControlComponent } from './components/wageincharge/wages-control/w
     DeptTotalleavesComponent,
     LoginComponent,
     ProfileComponent,
-    ResetpasswordComponent,
     WagesAddpersonsComponent,
     WagesControlComponent,
   ],
